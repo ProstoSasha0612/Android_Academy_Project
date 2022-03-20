@@ -1,6 +1,7 @@
 package com.projectapp.moviesapp
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,19 @@ class FragmentMoviesList : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.filmItem.filmPosterItem.setOnClickListener {
+            openMovieDetailsFragment()
+        }
+    }
+
+    private fun openMovieDetailsFragment(){
+        parentFragmentManager.beginTransaction()
+            .addToBackStack("MoviesDetailsFragment")
+            .add(R.id.fragment_container,FragmentMovieDetails.newInstance())
+            .commit()
+    }
 
     companion object {
         fun newInstance() = FragmentMoviesList()

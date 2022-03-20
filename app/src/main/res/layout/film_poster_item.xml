@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="170dp"
     android:layout_height="296dp"
-    android:elevation="1dp">
+    android:elevation="1dp"
+    android:id="@+id/film_poster_item">
 
     <View
         android:id="@+id/poster_border"

@@ -1,6 +1,7 @@
 package com.projectapp.moviesapp
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,13 +19,13 @@ class FragmentMovieDetails : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMovieDetailsBinding.inflate(layoutInflater, container, true)
+        _binding = FragmentMovieDetailsBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
     companion object {
         @JvmStatic
-        fun newInstance() = FragmentMoviesList()
+        fun newInstance() = FragmentMovieDetails()
 
     }
 }
