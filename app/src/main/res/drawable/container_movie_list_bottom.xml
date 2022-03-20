@@ -10,10 +10,7 @@
                 android:endColor="#1b1b28"
                 android:startColor="#20202e"
                 android:type="linear"
-                android:useLevel="true"/>
+                android:useLevel="true" />
         </shape>
-
     </item>
-
-
 </layer-list>

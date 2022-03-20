@@ -24,7 +24,7 @@
 
     <style name="back_arrow_text">
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">16dp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_alignParentStart">true</item>
         <item name="android:layout_alignParentEnd">true</item>
         <item name="android:layout_centerVertical">true</item>
@@ -33,6 +33,7 @@
         <item name="android:gravity">center_horizontal|center_vertical</item>
         <item name="android:lineSpacingExtra">2sp</item>
         <item name="android:textColor">@color/grey</item>
+        <item name="fontFamily">@font/roboto_light</item>
     </style>
 
     <style name="film_name_detail_activity">
@@ -54,6 +55,7 @@
         <item name="android:layout_centerVertical">true</item>
         <item name="android:gravity">center_horizontal|center_vertical</item>
         <item name="android:textAppearance">@style/text_13_plus</item>
+        <item name="android:fontFamily">@font/roboto_black</item>
     </style>
 
     <style name="movie_details_genre">
@@ -89,6 +91,7 @@
         <item name="android:layout_marginStart">8dp</item>
         <item name="android:layout_marginTop">4dp</item>
         <item name="android:textColor">@color/grey</item>
+        <item name="fontFamily">@font/roboto_black</item>
     </style>
 
     <style name="storyline_text">
@@ -105,6 +108,7 @@
         <item name="android:shadowDx">0</item>
         <item name="android:shadowDy">6</item>
         <item name="android:shadowRadius">12</item>
+        <item name="fontFamily">@font/roboto_black</item>
     </style>
 
     <style name="description_text">
@@ -120,6 +124,7 @@
         <item name="android:lineSpacingExtra">4sp</item>
         <item name="android:textSize">@dimen/normal_text</item>
         <item name="android:textColor">@color/white</item>
+        <item name="fontFamily">@font/roboto_light</item>
     </style>
 
     <style name="cast_textview">
@@ -146,6 +151,7 @@
         <item name="android:layout_alignParentEnd">true</item>
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_marginTop">7dp</item>
+        <item name="fontFamily">@font/roboto_black</item>
     </style>
 
     <style name="actor_name_textview">
@@ -160,6 +166,7 @@
         <item name="android:textSize">@dimen/small_text</item>
         <item name="android:textColor">@color/actors_name_color</item>
         <item name="android:layout_marginTop">6dp</item>
+        <item name="fontFamily">@font/roboto_black</item>
     </style>
 
     <!--film_poster_item-->
@@ -174,6 +181,7 @@
         <item name="android:lineSpacingExtra">3sp</item>
         <item name="android:textColor">@color/movie_details_pink</item>
         <item name="android:textSize">8sp</item>
+        <item name="fontFamily">@font/roboto_light</item>
     </style>
 
     <style name="rating_star_film_poster">

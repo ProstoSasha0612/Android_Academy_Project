@@ -2,10 +2,11 @@
     <string name="app_name">MoviesApp</string>
     <string name="back_arrow_text">Back</string>
     <string name="_13_text">13+</string>
-    <string name="avengers_end_game_text">Avengers: \nEnd Game</string>
+    <string name="avengers_end_game_text">Avengers: End Game</string>
     <string name="_13plus_text">13+</string>
     <string name="action_adventure_fantasy_genre">Action, Adventure, Fantasy</string>
     <string name="_125_reviews_text">125 REVIEWS</string>
+    <string name="text_137_min">137 MIN</string>
     <string name="storyline">Storyline</string>
     <string name="default_description">After the devastating events of Avengers: Infinity War, the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos\' actions and restore balance to the universe.</string>
     <string name="cast_text">Cast</string>
@@ -14,6 +15,4 @@
     <string name="chris_evans_text">Chris Evans</string>
     <string name="chris_hemsworth_text">Chris Hemsworth</string>
     <string name="movies_list">Movies list</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

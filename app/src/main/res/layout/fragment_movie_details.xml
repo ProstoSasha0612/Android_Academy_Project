@@ -56,7 +56,7 @@
             android:id="@+id/back_text"
             style="@style/back_arrow_text"
             android:drawablePadding="8dp"
-            android:fontFamily="@font/roboto"
+            android:fontFamily="@font/roboto_light"
             android:text="@string/back_arrow_text"
             app:drawableStartCompat="@drawable/ic_arrow_back"
             app:layout_constraintStart_toEndOf="@+id/guideline2"
@@ -66,7 +66,6 @@
             android:id="@+id/age_rate_tv"
             style="@style/age_plus_text"
             android:text="@string/_13plus_text"
-            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/film_name_tv"
             app:layout_constraintStart_toStartOf="@+id/guideline2" />
 

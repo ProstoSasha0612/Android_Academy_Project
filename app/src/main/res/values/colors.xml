@@ -17,6 +17,8 @@
     <color name="shadow_color">#80000000</color>
     <color name="actors_name_color">#D8D8D8</color>
 
-
+    <!--Film poster item colors-->
     <color name="poster_bottom">#FD404056</color>
+    <color name="film_length_color">#565665</color>
+
 </resources>
