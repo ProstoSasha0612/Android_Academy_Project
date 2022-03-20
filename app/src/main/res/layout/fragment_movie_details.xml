@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_details">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/main_image"
+            android:layout_width="match_parent"
+            android:layout_height="298dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="298dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/main_film_background_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="298dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_mask_movie_details" />
+        </FrameLayout>
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_end="16dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="16dp" />
+
+        <TextView
+            android:id="@+id/back_text"
+            style="@style/back_arrow_text"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/back_arrow_text"
+            app:drawableStartCompat="@drawable/ic_arrow_back"
+            app:layout_constraintStart_toEndOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/age_rate_tv"
+            style="@style/age_plus_text"
+            android:text="@string/_13plus_text"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/film_name_tv"
+            app:layout_constraintStart_toStartOf="@+id/guideline2" />
+
+        <TextView
+            android:id="@+id/film_name_tv"
+            style="@style/film_name_detail_activity"
+            android:text="@string/avengers_end_game_text"
+            app:layout_constraintBottom_toBottomOf="@+id/main_image"
+            app:layout_constraintEnd_toStartOf="@+id/guideline1"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/main_image" />
+
+        <TextView
+            android:id="@+id/genre_tv"
+            style="@style/movie_details_genre"
+            android:text="@string/action_adventure_fantasy_genre"
+            app:layout_constraintEnd_toStartOf="@+id/guideline1"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/film_name_tv" />
+
+<!--        TODO если буду делать красивый rating bar, то использовать нижний и заменить картинку из svg на webp -->
+<!--        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:progressDrawable="@drawable/ic_custon_start"
+            android:numStars="5"
+            android:rating="3"
+            android:stepSize="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/guideline1"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="parent" />-->
+
+
+        <ImageView
+            android:id="@+id/star_icon1"
+            style="@style/rating_star"
+            android:src="@drawable/ic_star_icon_pink"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/genre_tv" />
+
+        <ImageView
+            android:id="@+id/star_icon2"
+            style="@style/rating_star"
+            android:layout_marginStart="3.25dp"
+            android:src="@drawable/ic_star_icon_pink"
+            app:layout_constraintStart_toEndOf="@+id/star_icon1"
+            app:layout_constraintTop_toBottomOf="@+id/genre_tv" />
+
+        <ImageView
+            android:id="@+id/star_icon3"
+            style="@style/rating_star"
+            android:layout_marginStart="3.25dp"
+            android:src="@drawable/ic_star_icon_pink"
+            app:layout_constraintStart_toEndOf="@+id/star_icon2"
+            app:layout_constraintTop_toBottomOf="@+id/genre_tv" />
+
+        <ImageView
+            android:id="@+id/star_icon4"
+            style="@style/rating_star"
+            android:layout_marginStart="3.25dp"
+            android:src="@drawable/ic_star_icon_pink"
+            app:layout_constraintStart_toEndOf="@+id/star_icon3"
+            app:layout_constraintTop_toBottomOf="@+id/genre_tv" />
+
+        <ImageView
+            android:id="@+id/star_icon5"
+            style="@style/rating_star"
+            android:layout_marginStart="3.25dp"
+            android:src="@drawable/ic_star_icon"
+            app:layout_constraintStart_toEndOf="@+id/star_icon4"
+            app:layout_constraintTop_toBottomOf="@+id/genre_tv" />
+
+        <TextView
+            android:id="@+id/reviews_count_tv"
+            style="@style/reviews_text"
+            android:text="@string/_125_reviews_text"
+            app:layout_constraintEnd_toStartOf="@+id/guideline1"
+            app:layout_constraintStart_toEndOf="@+id/star_icon5"
+            app:layout_constraintTop_toBottomOf="@+id/genre_tv" />
+
+        <TextView
+            android:id="@+id/storyline_text"
+            style="@style/storyline_text"
+            android:layout_marginTop="28dp"
+            android:text="@string/storyline"
+            app:layout_constraintEnd_toStartOf="@+id/guideline1"
+            app:layout_constraintStart_toEndOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@id/reviews_count_tv" />
+
+        <TextView
+            android:id="@+id/description_tv"
+            style="@style/description_text"
+            android:text="@string/default_description"
+            app:layout_constraintEnd_toStartOf="@+id/guideline1"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/storyline_text" />
+
+        <TextView
+            android:id="@+id/cast_text"
+            style="@style/cast_textview"
+            android:text="@string/cast_text"
+            app:layout_constraintEnd_toStartOf="@+id/guideline1"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/description_tv" />
+
+        <ImageView
+            android:id="@+id/actor1"
+            style="@style/cast_actor"
+            android:src="@drawable/movie_actor_1"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/cast_text" />
+
+        <TextView
+            android:id="@+id/actor_name1"
+            style="@style/actor_name_textview"
+            android:text="@string/robert_downey_jr_text"
+            app:layout_constraintEnd_toEndOf="@+id/actor1"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/actor1" />
+
+        <ImageView
+            android:id="@+id/actor2"
+            style="@style/cast_actor"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="7dp"
+            android:src="@drawable/movie_actor_2"
+            app:layout_constraintStart_toEndOf="@+id/actor1"
+            app:layout_constraintTop_toBottomOf="@+id/cast_text" />
+
+        <TextView
+            android:id="@+id/actor_name2"
+            style="@style/actor_name_textview"
+            android:text="@string/chris_evans_text"
+            app:layout_constraintEnd_toEndOf="@+id/actor2"
+            app:layout_constraintStart_toStartOf="@+id/actor2"
+            app:layout_constraintTop_toBottomOf="@+id/actor2" />
+
+        <ImageView
+            android:id="@+id/actor3"
+            style="@style/cast_actor"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="7dp"
+            android:src="@drawable/movie_actor_3"
+            app:layout_constraintStart_toEndOf="@+id/actor2"
+            app:layout_constraintTop_toBottomOf="@+id/cast_text" />
+
+        <TextView
+            android:id="@+id/actor_name3"
+            style="@style/actor_name_textview"
+            android:text="@string/mark_ruffalo_text"
+            app:layout_constraintEnd_toEndOf="@+id/actor3"
+            app:layout_constraintStart_toStartOf="@+id/actor3"
+            app:layout_constraintTop_toBottomOf="@+id/actor3" />
+
+        <ImageView
+            android:id="@+id/actor4"
+            style="@style/cast_actor"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="7dp"
+            android:src="@drawable/movie_actor_4"
+            app:layout_constraintStart_toEndOf="@+id/actor3"
+            app:layout_constraintTop_toBottomOf="@+id/cast_text" />
+
+        <TextView
+            android:id="@+id/actor_name4"
+            style="@style/actor_name_textview"
+            android:text="@string/chris_hemsworth_text"
+            app:layout_constraintEnd_toEndOf="@+id/actor4"
+            app:layout_constraintStart_toStartOf="@+id/actor4"
+            app:layout_constraintTop_toBottomOf="@+id/actor4" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>
