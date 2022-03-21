@@ -167,6 +167,7 @@
         <item name="android:textColor">@color/actors_name_color</item>
         <item name="android:layout_marginTop">6dp</item>
         <item name="fontFamily">@font/roboto_black</item>
+        <item name="android:textAlignment">textStart</item>
     </style>
 
     <!--film_poster_item-->

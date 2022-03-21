@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="170dp"
-    android:layout_height="296dp"
+    android:layout_height="wrap_content"
     android:elevation="1dp"
-    android:id="@+id/film_poster_item">
+    android:id="@+id/view_holder_movie"
+    android:paddingBottom="11dp">
 
     <View
         android:id="@+id/poster_border"
@@ -21,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
-        android:id="@+id/poster_image"
+        android:id="@+id/poster_image_layout"
         android:layout_width="166dp"
         android:layout_height="248dp"
         android:layout_marginTop="2dp"
@@ -31,6 +32,7 @@
         app:layout_constraintTop_toTopOf="@id/poster_border">
 
         <ImageView
+            android:id="@+id/poster_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/avengers_end_game_poster" />
@@ -42,13 +44,14 @@
     </FrameLayout>
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/is_favorite_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="11dp"
         android:layout_marginEnd="8dp"
-        android:src="@drawable/ic_like"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:src="@drawable/ic_like_white"
+        app:layout_constraintEnd_toEndOf="@+id/poster_border"
+        app:layout_constraintTop_toTopOf="@+id/poster_image_layout" />
 
     <View
         android:id="@+id/rectangle_age"
@@ -58,15 +61,16 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="6dp"
         android:alpha="0.9"
         android:background="@drawable/rectanle_age_movie_list_item"
         android:gravity="center_horizontal|center_vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/poster_image_layout"
+        app:layout_constraintTop_toTopOf="@+id/poster_image_layout" />
 
     <TextView
+        android:id="@+id/age_rate_tv"
         android:layout_width="wrap_content"
         android:layout_height="16dp"
         android:layout_alignParentLeft="true"
@@ -87,14 +91,14 @@
         style="@style/genre_poster"
         android:text="@string/action_adventure_fantasy_genre"
         app:layout_constraintBottom_toBottomOf="@id/guideline"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/poster_image_layout" />
 
     <ImageView
         android:id="@+id/star_icon1"
         style="@style/rating_star_film_poster"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="6dp"
         android:src="@drawable/ic_star_icon_pink"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/poster_image_layout"
         app:layout_constraintTop_toBottomOf="@+id/genre_tv" />
 
     <ImageView
@@ -176,9 +180,10 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@id/view_bottom_background"
         app:layout_constraintStart_toStartOf="@+id/view_bottom_background"
-        app:layout_constraintTop_toBottomOf="@+id/poster_image" />
+        app:layout_constraintTop_toBottomOf="@+id/poster_image_layout" />
 
     <TextView
+        android:id="@+id/duration_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -187,6 +192,9 @@
         android:text="@string/text_137_min"
         android:textColor="@color/film_length_color"
         android:textSize="8sp"
+        app:layout_constraintVertical_bias="0"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/poster_border"
         app:layout_constraintEnd_toEndOf="@id/view_bottom_background"
         app:layout_constraintStart_toStartOf="@id/view_bottom_background"
         app:layout_constraintTop_toBottomOf="@id/film_name_tv" />

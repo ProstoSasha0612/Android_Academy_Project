@@ -15,4 +15,8 @@
     <string name="chris_evans_text">Chris Evans</string>
     <string name="chris_hemsworth_text">Chris Hemsworth</string>
     <string name="movies_list">Movies list</string>
+
+    <!--Strings for real data-->
+    <string name="minutes_text">MIN</string>
+    <string name="reviews_text">reviews</string>
 </resources>

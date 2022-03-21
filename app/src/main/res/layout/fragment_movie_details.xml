@@ -171,71 +171,83 @@
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toBottomOf="@+id/description_tv" />
 
-        <ImageView
-            android:id="@+id/actor1"
-            style="@style/cast_actor"
-            android:src="@drawable/movie_actor_1"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/actors_rv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/guideline1"
+            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/cast_text" />
+            app:layout_constraintTop_toBottomOf="@id/cast_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/view_holder_actor"
+            android:layout_marginBottom="12dp"/>
 
-        <TextView
-            android:id="@+id/actor_name1"
-            style="@style/actor_name_textview"
-            android:text="@string/robert_downey_jr_text"
-            app:layout_constraintEnd_toEndOf="@+id/actor1"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/actor1" />
+<!--        <ImageView-->
+<!--            android:id="@+id/actor1"-->
+<!--            style="@style/cast_actor"-->
+<!--            android:src="@drawable/movie_actor_1"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/guideline2"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/cast_text" />-->
 
-        <ImageView
-            android:id="@+id/actor2"
-            style="@style/cast_actor"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="7dp"
-            android:src="@drawable/movie_actor_2"
-            app:layout_constraintStart_toEndOf="@+id/actor1"
-            app:layout_constraintTop_toBottomOf="@+id/cast_text" />
+<!--        <TextView-->
+<!--            android:id="@+id/actor_name1"-->
+<!--            style="@style/actor_name_textview"-->
+<!--            android:text="@string/robert_downey_jr_text"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/actor1"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/guideline2"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/actor1" />-->
 
-        <TextView
-            android:id="@+id/actor_name2"
-            style="@style/actor_name_textview"
-            android:text="@string/chris_evans_text"
-            app:layout_constraintEnd_toEndOf="@+id/actor2"
-            app:layout_constraintStart_toStartOf="@+id/actor2"
-            app:layout_constraintTop_toBottomOf="@+id/actor2" />
+<!--        <ImageView-->
+<!--            android:id="@+id/actor2"-->
+<!--            style="@style/cast_actor"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:layout_marginTop="7dp"-->
+<!--            android:src="@drawable/movie_actor_2"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/actor1"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/cast_text" />-->
 
-        <ImageView
-            android:id="@+id/actor3"
-            style="@style/cast_actor"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="7dp"
-            android:src="@drawable/movie_actor_3"
-            app:layout_constraintStart_toEndOf="@+id/actor2"
-            app:layout_constraintTop_toBottomOf="@+id/cast_text" />
+<!--        <TextView-->
+<!--            android:id="@+id/actor_name2"-->
+<!--            style="@style/actor_name_textview"-->
+<!--            android:text="@string/chris_evans_text"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/actor2"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/actor2"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/actor2" />-->
 
-        <TextView
-            android:id="@+id/actor_name3"
-            style="@style/actor_name_textview"
-            android:text="@string/mark_ruffalo_text"
-            app:layout_constraintEnd_toEndOf="@+id/actor3"
-            app:layout_constraintStart_toStartOf="@+id/actor3"
-            app:layout_constraintTop_toBottomOf="@+id/actor3" />
+<!--        <ImageView-->
+<!--            android:id="@+id/actor3"-->
+<!--            style="@style/cast_actor"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:layout_marginTop="7dp"-->
+<!--            android:src="@drawable/movie_actor_3"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/actor2"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/cast_text" />-->
 
-        <ImageView
-            android:id="@+id/actor4"
-            style="@style/cast_actor"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="7dp"
-            android:src="@drawable/movie_actor_4"
-            app:layout_constraintStart_toEndOf="@+id/actor3"
-            app:layout_constraintTop_toBottomOf="@+id/cast_text" />
+<!--        <TextView-->
+<!--            android:id="@+id/actor_name3"-->
+<!--            style="@style/actor_name_textview"-->
+<!--            android:text="@string/mark_ruffalo_text"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/actor3"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/actor3"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/actor3" />-->
 
-        <TextView
-            android:id="@+id/actor_name4"
-            style="@style/actor_name_textview"
-            android:text="@string/chris_hemsworth_text"
-            app:layout_constraintEnd_toEndOf="@+id/actor4"
-            app:layout_constraintStart_toStartOf="@+id/actor4"
-            app:layout_constraintTop_toBottomOf="@+id/actor4" />
+<!--        <ImageView-->
+<!--            android:id="@+id/actor4"-->
+<!--            style="@style/cast_actor"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:layout_marginTop="7dp"-->
+<!--            android:src="@drawable/movie_actor_4"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/actor3"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/cast_text" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/actor_name4"-->
+<!--            style="@style/actor_name_textview"-->
+<!--            android:text="@string/chris_hemsworth_text"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/actor4"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/actor4"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/actor4" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
