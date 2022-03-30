@@ -1,8 +1,10 @@
-package com.projectapp.moviesapp.data
+package com.projectapp.moviesapp.my_data
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.projectapp.moviesapp.data.model.Actor
 import com.projectapp.moviesapp.databinding.ViewHolderActorBinding
 
 class ActorsAdapter(private val actorsList: List<Actor>) :
@@ -23,11 +25,11 @@ class ActorsAdapter(private val actorsList: List<Actor>) :
 
     class ActorsViewHolder(private val binding: ViewHolderActorBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(actor: Actor) {
-            with(binding) {
-                nameTv.text = actor.name
-                //TODO use here Glide to loading images in future
-            }
+            Glide.with(binding.root).load(actor.imageUrl).into(binding.photoIv)
+            binding.nameTv.text = actor.name
+
         }
     }
 }

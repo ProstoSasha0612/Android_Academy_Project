@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android-extensions'
+    id 'org.jetbrains.kotlin.plugin.serialization'
+    id 'kotlinx-serialization'
 }
 
 android {
@@ -57,4 +59,12 @@ dependencies {
     /*Glide*/
     implementation 'com.github.bumptech.glide:glide:4.13.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
+
+    /*Kotlin coroutines*/
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
+
+    /*Kotlin serialization*/
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
 }

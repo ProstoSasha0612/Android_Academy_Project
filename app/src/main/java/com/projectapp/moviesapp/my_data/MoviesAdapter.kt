@@ -1,4 +1,4 @@
-package com.projectapp.moviesapp.data
+package com.projectapp.moviesapp.my_data
 
 import android.annotation.SuppressLint
 import android.content.res.Resources
@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.projectapp.moviesapp.FragmentMovieDetails
 import com.projectapp.moviesapp.R
+import com.projectapp.moviesapp.data.model.Movie
 import com.projectapp.moviesapp.databinding.ViewHolderMovieBinding
 
 class MoviesAdapter(
@@ -35,20 +37,27 @@ class MoviesAdapter(
         @SuppressLint("SetTextI18n")
         fun bind(movie: Movie) {
             with(binding) {
-//                Glide.with(binding.root).load(movie.imageUrl).into(binding.posterImage)
-                filmNameTv.text = movie.filmName
-                durationTv.text = "${movie.duration} ${resources.getString(R.string.minutes_text)}"
+                Glide.with(binding.root).load(movie.imageUrl).into(binding.posterImage)
+                filmNameTv.text = movie.title
+                //TODO RAting function
+                runningTimeTv.text =
+                    "${movie.runningTime} ${resources.getString(R.string.minutes_text)}"
                 binding.reviewsCountTv.text =
-                    "${movie.reviewsCount} ${resources.getString(R.string.reviews_text)}"
-                genreTv.text = movie.genres
-                ageRateTv.text = "${movie.ageRate}+"
-                if (movie.isFavorite) {
+                    "${movie.reviewCount} ${resources.getString(R.string.reviews_text)}"
+                genreTv.text = FragmentMovieDetails.getGenresTextViewText(movie.genres)
+                ageRateTv.text = "${movie.pgAge}+"
+                isFavoriteIv.setBackgroundResource(getMovieIsLikedDrawableId(movie.isLiked))
+                if (movie.isLiked) {
                     isFavoriteIv.setBackgroundResource(R.drawable.ic_like_pink)
                 } else {
                     isFavoriteIv.setBackgroundResource(R.drawable.ic_like_white)
                 }
             }
             binding.root.setOnClickListener { onClickListener.onClick(movie) }
+        }
+
+        private fun getMovieIsLikedDrawableId(isLiked: Boolean): Int {
+            return if (isLiked) R.drawable.ic_like_pink else R.drawable.ic_like_white
         }
     }
 

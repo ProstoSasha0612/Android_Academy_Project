@@ -6,17 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.projectapp.moviesapp.data.Movie
-import com.projectapp.moviesapp.data.MovieDataSource
-import com.projectapp.moviesapp.data.MoviesAdapter
+import com.projectapp.moviesapp.data.JsonMovieRepository
+import com.projectapp.moviesapp.data.model.Movie
+import com.projectapp.moviesapp.my_data.MovieDataSource
+import com.projectapp.moviesapp.my_data.MoviesAdapter
 import com.projectapp.moviesapp.databinding.FragmentMoviesListBinding
+import kotlinx.coroutines.*
 
 class FragmentMoviesList : Fragment() {
 
     private var _binding: FragmentMoviesListBinding? = null
     private val binding get() = requireNotNull(_binding)
-    private val adapter: MoviesAdapter? = null
+
+    //vieModelValues
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,18 +34,25 @@ class FragmentMoviesList : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        binding.filmItem.viewHolderMovie.setOnClickListener {
-//            openMovieDetailsFragment()
-//        }
+
         val movieOnClickListener = object : MoviesAdapter.OnClickListener {
             override fun onClick(movie: Movie) {
                 openMovieDetailsFragment(movie)
             }
         }
-        with(binding.rvMoviesList) {
-            layoutManager = GridLayoutManager(context, 2)
-            adapter = MoviesAdapter(MovieDataSource.getMovies(), resources, movieOnClickListener)
+        var moviesList: List<Movie>? = null
+        CoroutineScope(Dispatchers.IO).launch {
+            moviesList = JsonMovieRepository(requireContext()).loadMovies()
+                with(binding.rvMoviesList) {
+                    layoutManager = GridLayoutManager(context, 2)
+                    adapter = MoviesAdapter(moviesList?: emptyList(), resources, movieOnClickListener)
+                }
+            Log.d("LOG1","before delay")
+            delay(5000)
+            Log.d("LOG1","after delay")
         }
+
+        Log.d("LOG1","out from coroutineScope")
     }
 
     private fun openMovieDetailsFragment(movie: Movie) {
