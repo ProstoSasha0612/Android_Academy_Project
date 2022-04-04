@@ -1,7 +1,8 @@
-package com.projectapp.moviesapp
+package com.projectapp.moviesapp.presentation.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.projectapp.moviesapp.R
 import com.projectapp.moviesapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun openMoviesListFragment(){
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container,FragmentMoviesList.newInstance())
+            .replace(R.id.fragment_container, FragmentMoviesList.newInstance())
             .commit()
 
     }

@@ -1,20 +1,18 @@
-package com.projectapp.moviesapp.data
+package com.projectapp.moviesapp.data.repository
 
 import android.content.Context
-import com.projectapp.moviesapp.data.model.Actor
-import com.projectapp.moviesapp.data.model.Genre
-import com.projectapp.moviesapp.data.model.Movie
+import com.projectapp.moviesapp.data.model.JsonActor
+import com.projectapp.moviesapp.data.model.JsonGenre
+import com.projectapp.moviesapp.data.model.JsonMovie
+import com.projectapp.moviesapp.domain.model.Actor
+import com.projectapp.moviesapp.domain.model.Genre
+import com.projectapp.moviesapp.domain.model.Movie
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
-interface MovieRepository {
-    suspend fun loadMovies(): List<Movie>
-    suspend fun loadMovie(movieId: Int): Movie?
-}
-
-internal class JsonMovieRepository(private val context: Context) : MovieRepository {
+class JsonMovieRepositoryImpl(private val context: Context) : JsonMovieRepository {
     private val jsonFormat = Json { ignoreUnknownKeys = true }
 
     private var movies: List<Movie>? = null

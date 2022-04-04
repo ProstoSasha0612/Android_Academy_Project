@@ -1,4 +1,4 @@
-package com.projectapp.moviesapp.data
+package com.projectapp.moviesapp.data.model
 
 import kotlinx.serialization.Serializable
 

@@ -1,4 +1,4 @@
-package com.projectapp.moviesapp
+package com.projectapp.moviesapp.presentation.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,12 +8,11 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.projectapp.moviesapp.data.JsonMovieRepository
-import com.projectapp.moviesapp.data.MovieRepository
-import com.projectapp.moviesapp.data.model.Actor
-import com.projectapp.moviesapp.data.model.Genre
-import com.projectapp.moviesapp.data.model.Movie
-import com.projectapp.moviesapp.my_data.ActorsAdapter
+import com.projectapp.moviesapp.R
+import com.projectapp.moviesapp.domain.model.Actor
+import com.projectapp.moviesapp.domain.model.Genre
+import com.projectapp.moviesapp.domain.model.Movie
+import com.projectapp.moviesapp.presentation.recyclerview.ActorsAdapter
 import com.projectapp.moviesapp.databinding.FragmentMovieDetailsBinding
 
 class FragmentMovieDetails : Fragment() {

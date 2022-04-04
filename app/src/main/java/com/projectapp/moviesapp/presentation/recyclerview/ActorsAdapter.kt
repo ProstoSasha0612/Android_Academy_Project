@@ -1,10 +1,10 @@
-package com.projectapp.moviesapp.my_data
+package com.projectapp.moviesapp.presentation.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.projectapp.moviesapp.data.model.Actor
+import com.projectapp.moviesapp.domain.model.Actor
 import com.projectapp.moviesapp.databinding.ViewHolderActorBinding
 
 class ActorsAdapter(private val actorsList: List<Actor>) :
