@@ -67,7 +67,7 @@
         <item name="android:layout_marginTop">4dp</item>
         <item name="android:lineSpacingExtra">4sp</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/movie_details_pink</item>
+        <item name="android:textColor">@color/pink_dark</item>
     </style>
 
     <style name="rating_star">
@@ -180,7 +180,7 @@
         <item name="android:layout_marginBottom">22dp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:lineSpacingExtra">3sp</item>
-        <item name="android:textColor">@color/movie_details_pink</item>
+        <item name="android:textColor">@color/pink_dark</item>
         <item name="android:textSize">8sp</item>
         <item name="fontFamily">@font/roboto_light</item>
     </style>

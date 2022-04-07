@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import com.projectapp.moviesapp.domain.model.Actor
 import com.projectapp.moviesapp.databinding.ViewHolderActorBinding
 
-class ActorsAdapter(private val actorsList: List<Actor>) :
+class ActorsAdapter(private val actorsList: List<Actor>?) :
     RecyclerView.Adapter<ActorsAdapter.ActorsViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActorsViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -16,11 +16,11 @@ class ActorsAdapter(private val actorsList: List<Actor>) :
     }
 
     override fun onBindViewHolder(holder: ActorsViewHolder, position: Int) {
-        holder.bind(actorsList[position])
+        actorsList?.let { holder.bind(actorsList[position]) }
     }
 
     override fun getItemCount(): Int {
-        return actorsList.size
+        return actorsList?.size ?: 0
     }
 
     class ActorsViewHolder(private val binding: ViewHolderActorBinding) :
@@ -29,7 +29,6 @@ class ActorsAdapter(private val actorsList: List<Actor>) :
         fun bind(actor: Actor) {
             Glide.with(binding.root).load(actor.imageUrl).into(binding.photoIv)
             binding.nameTv.text = actor.name
-
         }
     }
 }

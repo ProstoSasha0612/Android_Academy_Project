@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.projectapp.moviesapp.R
@@ -14,12 +16,22 @@ import com.projectapp.moviesapp.domain.model.Genre
 import com.projectapp.moviesapp.domain.model.Movie
 import com.projectapp.moviesapp.presentation.recyclerview.ActorsAdapter
 import com.projectapp.moviesapp.databinding.FragmentMovieDetailsBinding
+import com.projectapp.moviesapp.presentation.viewmodel.MovieDetailsViewModel
+import com.projectapp.moviesapp.presentation.viewmodel.factory.MovieDetailsViewModelFactory
 
 class FragmentMovieDetails : Fragment() {
 
 
     private var _binding: FragmentMovieDetailsBinding? = null
     private val binding get() = requireNotNull(_binding)
+
+    private val movie by lazy { arguments?.getParcelable<Movie>(KEY_MOVIE) }
+    private val vm by lazy {
+        ViewModelProvider(
+            this,
+            MovieDetailsViewModelFactory(movie)
+        ).get(MovieDetailsViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,7 +44,9 @@ class FragmentMovieDetails : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         fillDataToViews()
+
     }
 
     private fun fillDataToViews() {
@@ -40,12 +54,12 @@ class FragmentMovieDetails : Fragment() {
         Glide.with(this).load(movie?.detailImageUrl).into(binding.detailImageIv)
         with(binding) {
             filmNameTv.text = movie?.title
-            storylineText.text = movie?.storyLine
+            descriptionTv.text = movie?.storyLine
             //TODO add rating filling (new empty function)
             binding.reviewsCountTv.text =
                 "${movie?.reviewCount} ${resources.getString(R.string.reviews_text)}"
             ageRateTv.text = "${movie?.pgAge}+"
-            genreTv.text = getGenresTextViewText(movie?.genres ?: emptyList())
+            genreTv.text = vm.getGenresText()
         }
         initActorsRecyclerView(movie?.actors)
     }
@@ -53,7 +67,7 @@ class FragmentMovieDetails : Fragment() {
     private fun initActorsRecyclerView(actorsList: List<Actor>?) {
         binding.actorsRv.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        binding.actorsRv.adapter = ActorsAdapter(actorsList ?: emptyList())
+        binding.actorsRv.adapter = ActorsAdapter(actorsList)
     }
 
 
@@ -64,16 +78,6 @@ class FragmentMovieDetails : Fragment() {
             return FragmentMovieDetails().apply {
                 this.arguments = bundle
             }
-        }
-
-        //viewModel function
-        fun getGenresTextViewText(genres: List<Genre>): String {
-            val sb = StringBuilder()
-            for ((i, genre) in genres) {
-                sb.append(genre)
-                if (i < genres.size - 1) sb.append(", ")
-            }
-            return sb.toString()
         }
 
         const val KEY_MOVIE = "key movie"

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.projectapp.moviesapp.domain.model.Movie
-import com.projectapp.moviesapp.domain.usecases.LoadMoviesUseCase
+import com.projectapp.moviesapp.domain.usecases.movielist.LoadMoviesUseCase
 import kotlinx.coroutines.launch
 
 class MoviesListViewModel(private val loadMoviesUseCase: LoadMoviesUseCase) : ViewModel() {

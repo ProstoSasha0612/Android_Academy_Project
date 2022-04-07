@@ -76,7 +76,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/reviews_count_tv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/reviews_count_tv"
-        app:tint="@color/pink_light"
         tools:ignore="ContentDescription" />
 
     <ImageView
@@ -88,7 +87,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/star1_image"
         app:layout_constraintStart_toEndOf="@+id/star1_image"
         app:layout_constraintTop_toTopOf="@+id/star1_image"
-        app:tint="@color/pink_light"
         tools:ignore="ContentDescription" />
 
     <ImageView
@@ -100,7 +98,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/star1_image"
         app:layout_constraintStart_toEndOf="@+id/star2_image"
         app:layout_constraintTop_toTopOf="@+id/star1_image"
-        app:tint="@color/pink_light"
         tools:ignore="ContentDescription" />
 
     <ImageView
@@ -112,7 +109,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/star1_image"
         app:layout_constraintStart_toEndOf="@+id/star3_image"
         app:layout_constraintTop_toTopOf="@+id/star1_image"
-        app:tint="@color/pink_light"
         tools:ignore="ContentDescription" />
 
     <ImageView

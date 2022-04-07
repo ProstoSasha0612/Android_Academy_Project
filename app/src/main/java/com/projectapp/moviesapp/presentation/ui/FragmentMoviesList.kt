@@ -18,26 +18,20 @@ class FragmentMoviesList : Fragment() {
 
     private var _binding: FragmentMoviesListBinding? = null
     private val binding get() = requireNotNull(_binding)
+    private var moviesAdapter: MoviesAdapter? = null
+
     private val vm by lazy {
         ViewModelProvider(
             this,
             MoviesListViewModelFactory(requireContext())
         ).get(MoviesListViewModel::class.java)
     }
-
-    val movieOnClickListener by lazy {
+    private val movieOnClickListener by lazy {
         object : MoviesAdapter.OnClickListener {
             override fun onClick(movie: Movie) {
                 openMovieDetailsFragment(movie)
             }
         }
-    }
-    private val moviesAdapter by lazy {
-        MoviesAdapter(
-            emptyList(),
-            resources,
-            movieOnClickListener
-        )
     }
 
 
@@ -59,16 +53,19 @@ class FragmentMoviesList : Fragment() {
 
     }
 
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
+    }
+
     private fun setUpAdapter() {
+        moviesAdapter = MoviesAdapter(resources, movieOnClickListener)
         binding.rvMoviesList.layoutManager = GridLayoutManager(context, 2)
         binding.rvMoviesList.adapter = moviesAdapter
     }
 
     private fun updateAdapter(moviesList: List<Movie>) {
-        //TODO придумать как здесь сделать получше.
-        //TODO как вариант сделать наследование от listAdapter и использовать что-то вроде notifyItemInserted()
-        binding.rvMoviesList.adapter = MoviesAdapter(moviesList, resources, movieOnClickListener)
-        binding.rvMoviesList.adapter?.notifyDataSetChanged()
+        moviesAdapter?.submitList(moviesList)
     }
 
     private fun openMovieDetailsFragment(movie: Movie) {
