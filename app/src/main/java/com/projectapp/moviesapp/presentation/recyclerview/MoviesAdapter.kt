@@ -88,6 +88,7 @@ class MoviesAdapter(
                 }
             }
         }
+
     }
 
     interface OnClickListener {

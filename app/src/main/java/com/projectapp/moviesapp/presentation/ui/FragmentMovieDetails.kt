@@ -1,10 +1,13 @@
 package com.projectapp.moviesapp.presentation.ui
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.core.widget.ImageViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -50,15 +53,16 @@ class FragmentMovieDetails : Fragment() {
     }
 
     private fun fillDataToViews() {
-        val movie = arguments?.getParcelable<Movie>(KEY_MOVIE)
+//        val movie = arguments?.getParcelable<Movie>(KEY_MOVIE)
         Glide.with(this).load(movie?.detailImageUrl).into(binding.detailImageIv)
         with(binding) {
-            filmNameTv.text = movie?.title
-            descriptionTv.text = movie?.storyLine
+            filmNameTv.text = vm.movie?.title
+            descriptionTv.text = vm.movie?.storyLine
             //TODO add rating filling (new empty function)
+            setRatingStarsColor(vm.movie?.rating?:0)
             binding.reviewsCountTv.text =
-                "${movie?.reviewCount} ${resources.getString(R.string.reviews_text)}"
-            ageRateTv.text = "${movie?.pgAge}+"
+                "${vm.movie?.reviewCount} ${resources.getString(R.string.reviews_text)}"
+            ageRateTv.text = "${vm.movie?.pgAge}+"
             genreTv.text = vm.getGenresText()
         }
         initActorsRecyclerView(movie?.actors)
@@ -68,6 +72,30 @@ class FragmentMovieDetails : Fragment() {
         binding.actorsRv.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.actorsRv.adapter = ActorsAdapter(actorsList)
+    }
+
+    private fun setRatingStarsColor(rating: Int) {
+        val ratingIcons = listOf(
+            binding.starImage1,
+            binding.starImage2,
+            binding.starImage3,
+            binding.starImage4,
+            binding.starImage5
+        )
+
+        ratingIcons.forEachIndexed { index, imageView ->
+            if (rating > index) {
+                ImageViewCompat.setImageTintList(
+                    imageView,
+                    ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            imageView.context,
+                            R.color.pink_dark
+                        )
+                    )
+                )
+            }
+        }
     }
 
 

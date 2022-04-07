@@ -194,12 +194,4 @@
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_marginTop">4dp</item>
     </style>
-
-    <!--RatingBar style-->
-    <style name="rating_bar" parent="Widget.AppCompat.RatingBar">
-        <item name="android:progressDrawable">@drawable/rating_bar_selector</item>
-        <item name="maxHeight">14dp</item>
-        <item name="minHeight">14dp</item>
-
-    </style>
 </resources>
