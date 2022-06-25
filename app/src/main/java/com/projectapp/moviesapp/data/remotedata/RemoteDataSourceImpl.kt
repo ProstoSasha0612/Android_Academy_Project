@@ -1,18 +1,19 @@
-package com.projectapp.moviesapp.data.repository
+package com.projectapp.moviesapp.data.remotedata
 
 import android.content.Context
-import com.projectapp.moviesapp.data.model.JsonActor
-import com.projectapp.moviesapp.data.model.JsonGenre
-import com.projectapp.moviesapp.data.model.JsonMovie
+import com.projectapp.moviesapp.data.model.original.JsonActorOriginal
+import com.projectapp.moviesapp.data.model.original.JsonGenreOriginal
+import com.projectapp.moviesapp.data.model.original.JsonMovieOriginal
 import com.projectapp.moviesapp.domain.model.Actor
 import com.projectapp.moviesapp.domain.model.Genre
 import com.projectapp.moviesapp.domain.model.Movie
+import com.projectapp.moviesapp.domain.repository.RemoteDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
-class JsonMovieRepositoryImpl(private val context: Context) : JsonMovieRepository {
+class RemoteDataSourceImpl(private val context: Context) : RemoteDataSource {
     private val jsonFormat = Json { ignoreUnknownKeys = true }
 
     private var movies: List<Movie>? = null
@@ -38,7 +39,7 @@ class JsonMovieRepositoryImpl(private val context: Context) : JsonMovieRepositor
 
     private suspend fun loadGenres(): List<Genre> = withContext(Dispatchers.IO) {
         val data = readAssetFileToString("genres.json")
-        val jsonGenres = jsonFormat.decodeFromString<List<JsonGenre>>(data)
+        val jsonGenres = jsonFormat.decodeFromString<List<JsonGenreOriginal>>(data)
         jsonGenres.map { jsonGenre -> Genre(id = jsonGenre.id, name = jsonGenre.name) }
     }
 
@@ -49,7 +50,7 @@ class JsonMovieRepositoryImpl(private val context: Context) : JsonMovieRepositor
 
     private suspend fun loadActors(): List<Actor> = withContext(Dispatchers.IO) {
         val data = readAssetFileToString("people.json")
-        val jsonActors = jsonFormat.decodeFromString<List<JsonActor>>(data)
+        val jsonActors = jsonFormat.decodeFromString<List<JsonActorOriginal>>(data)
 
         jsonActors.map { jsonActor ->
             Actor(
@@ -68,7 +69,7 @@ class JsonMovieRepositoryImpl(private val context: Context) : JsonMovieRepositor
         val genresMap = genreData.associateBy(Genre::id)
         val actorsMap = actors.associateBy(Actor::id)
 
-        val jsonMovies = jsonFormat.decodeFromString<List<JsonMovie>>(jsonString)
+        val jsonMovies = jsonFormat.decodeFromString<List<JsonMovieOriginal>>(jsonString)
 
         return jsonMovies.map { jsonMovie ->
             Movie(
