@@ -25,7 +25,7 @@ class FragmentMoviesList : Fragment() {
     private val vm by lazy {
         ViewModelProvider(
             this,
-            MoviesListViewModelFactory()
+            MoviesListViewModelFactory(requireActivity().applicationContext)
         )[MoviesListViewModel::class.java]
     }
     private val movieOnClickListener by lazy {
