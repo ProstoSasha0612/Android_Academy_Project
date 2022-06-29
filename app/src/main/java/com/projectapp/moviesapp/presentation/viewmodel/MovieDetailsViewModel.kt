@@ -8,6 +8,6 @@ class MovieDetailsViewModel(
     val movie: Movie?,
 ) : ViewModel() {
 
-    fun getGenresText() = Extra.getGenresText(movie?.genres)
+//    fun getGenresText() = Extra.getGenresText(movie?.genres)
 
 }

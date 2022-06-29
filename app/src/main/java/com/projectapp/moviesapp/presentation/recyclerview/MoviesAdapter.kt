@@ -22,6 +22,7 @@ class MoviesAdapter(
     val onClickListener: OnClickListener
 ) :
     ListAdapter<Movie, MoviesAdapter.MovieViewHolder>(movieDiffUtilCallback) {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = ViewHolderMovieBinding.inflate(layoutInflater)
@@ -44,7 +45,7 @@ class MoviesAdapter(
                     "${movie.runningTime} ${resources.getString(R.string.minutes_text)}"
                 binding.reviewsCountTv.text =
                     "${movie.reviewCount} ${resources.getString(R.string.reviews_text)}"
-                genreTv.text = Extra.getGenresText(movie.genres)
+//                genreTv.text = Extra.getGenresText(movie.genres)
                 ageRateTv.text = "${movie.pgAge}+"
                 setLikeColor(movie.isLiked)
                 setRatingStarsColor(movie.rating)

@@ -1,6 +1,7 @@
 package com.projectapp.moviesapp.presentation.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.projectapp.moviesapp.R
+import com.projectapp.moviesapp.data.model.JsonMovie
 import com.projectapp.moviesapp.databinding.FragmentMoviesListBinding
 import com.projectapp.moviesapp.domain.model.Movie
 import com.projectapp.moviesapp.presentation.recyclerview.MoviesAdapter
@@ -23,8 +25,8 @@ class FragmentMoviesList : Fragment() {
     private val vm by lazy {
         ViewModelProvider(
             this,
-            MoviesListViewModelFactory(requireContext())
-        ).get(MoviesListViewModel::class.java)
+            MoviesListViewModelFactory()
+        )[MoviesListViewModel::class.java]
     }
     private val movieOnClickListener by lazy {
         object : MoviesAdapter.OnClickListener {
@@ -53,6 +55,9 @@ class FragmentMoviesList : Fragment() {
 
     }
 
+
+
+
     override fun onDestroy() {
         _binding = null
         super.onDestroy()
@@ -64,8 +69,10 @@ class FragmentMoviesList : Fragment() {
         binding.rvMoviesList.adapter = moviesAdapter
     }
 
-    private fun updateAdapter(moviesList: List<Movie>) {
-        moviesAdapter?.submitList(moviesList)
+    private fun updateAdapter(moviesList: List<JsonMovie>) {
+        Log.d("MYTAG", "All is ok, movies list size = ${moviesList.size}")
+        Log.d("MYTAG", "last movie .toSting = ${moviesList.last().title}")
+//        moviesAdapter?.submitList(moviesList)
     }
 
     private fun openMovieDetailsFragment(movie: Movie) {

@@ -9,13 +9,11 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.widget.ImageViewCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.projectapp.moviesapp.R
 import com.projectapp.moviesapp.domain.model.Actor
-import com.projectapp.moviesapp.domain.model.Genre
 import com.projectapp.moviesapp.domain.model.Movie
 import com.projectapp.moviesapp.presentation.recyclerview.ActorsAdapter
 import com.projectapp.moviesapp.databinding.FragmentMovieDetailsBinding
@@ -49,7 +47,6 @@ class FragmentMovieDetails : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         fillDataToViews()
-
     }
 
     private fun fillDataToViews() {
@@ -63,7 +60,7 @@ class FragmentMovieDetails : Fragment() {
             binding.reviewsCountTv.text =
                 "${vm.movie?.reviewCount} ${resources.getString(R.string.reviews_text)}"
             ageRateTv.text = "${vm.movie?.pgAge}+"
-            genreTv.text = vm.getGenresText()
+//            genreTv.text = vm.getGenresText()
         }
         initActorsRecyclerView(movie?.actors)
     }

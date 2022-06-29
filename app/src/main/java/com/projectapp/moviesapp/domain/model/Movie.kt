@@ -14,7 +14,7 @@ data class Movie(
     val reviewCount: Int,
     val pgAge: Int,
     val runningTime: Int,
-    val genres: List<Genre>,
+//    val genres: List<Genre>,
     val actors: List<Actor>,
     val isLiked: Boolean
 ) : Parcelable
