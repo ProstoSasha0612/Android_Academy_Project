@@ -6,7 +6,7 @@ import com.projectapp.moviesapp.domain.repository.MovieRepository
 import com.projectapp.moviesapp.data.datasource.remotedata.RemoteDataSource
 import com.projectapp.moviesapp.data.datasource.sharedprefs.SharedPrefsDataSource
 
-internal class MovieRepositoryImpl(
+class MovieRepositoryImpl private constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val sharedPrefsDataSource: SharedPrefsDataSource
@@ -17,4 +17,25 @@ internal class MovieRepositoryImpl(
         remoteDataSource.loadPopularMovies(pageNumber)
 
     override suspend fun loadGenres() = remoteDataSource.loadGenres()
+
+    companion object {
+        private var instance: MovieRepository? = null
+
+        fun initialize(
+            remoteDataSource: RemoteDataSource,
+            localDataSource: LocalDataSource,
+            sharedPrefsDataSource: SharedPrefsDataSource
+        ): MovieRepository {
+            if (instance == null) {
+                instance =
+                    MovieRepositoryImpl(remoteDataSource, localDataSource, sharedPrefsDataSource)
+            }
+
+            return instance ?: throw IllegalAccessException()
+        }
+
+        fun get(): MovieRepository {
+            return instance ?: throw IllegalAccessException()
+        }
+    }
 }

@@ -9,9 +9,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.create
 
-object MoviesApiImpl {
-    private const val BASE_URL = "https://api.themoviedb.org/3/"
-
+class MoviesApiProvider {
     private val json = Json {
         ignoreUnknownKeys = true
     }
@@ -32,4 +30,9 @@ object MoviesApiImpl {
         .build()
 
     val moviesApi = retrofit.create<MoviesApi>()
+
+    companion object {
+        private const val BASE_URL = "https://api.themoviedb.org/3/"
+
+    }
 }
