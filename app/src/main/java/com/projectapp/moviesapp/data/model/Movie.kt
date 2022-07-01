@@ -1,7 +1,7 @@
-package com.projectapp.moviesapp.domain.model
+package com.projectapp.moviesapp.data.model
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Movie(

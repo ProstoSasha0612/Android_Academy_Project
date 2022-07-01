@@ -1,8 +1,6 @@
 package com.projectapp.moviesapp.domain.repository
 
 import com.projectapp.moviesapp.data.model.JsonMovie
-import com.projectapp.moviesapp.domain.model.Genre
-import com.projectapp.moviesapp.domain.model.Movie
 
 
 interface MovieRepository {

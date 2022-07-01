@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.projectapp.moviesapp.data.model.JsonMovie
-import com.projectapp.moviesapp.domain.model.Movie
 import com.projectapp.moviesapp.domain.usecases.movielist.FillGenreStorageUseCase
 import com.projectapp.moviesapp.domain.usecases.movielist.LoadMoviesUseCase
 import kotlinx.coroutines.launch

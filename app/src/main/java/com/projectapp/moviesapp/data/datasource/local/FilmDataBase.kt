@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.projectapp.moviesapp.domain.model.Genre
+import com.projectapp.moviesapp.data.model.Genre
 
 @Database(entities = [Genre::class], version = 1)
 abstract class FilmDataBase : RoomDatabase() {
@@ -15,7 +15,7 @@ abstract class FilmDataBase : RoomDatabase() {
             context,
             FilmDataBase::class.java,
             DATABASE_NAME
-        ).build()
+        )
 
         private const val DATABASE_NAME = "film-database"
     }

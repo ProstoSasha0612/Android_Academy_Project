@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.projectapp.moviesapp.R
 import com.projectapp.moviesapp.data.model.JsonMovie
 import com.projectapp.moviesapp.databinding.FragmentMoviesListBinding
-import com.projectapp.moviesapp.domain.model.Movie
+import com.projectapp.moviesapp.data.model.Movie
 import com.projectapp.moviesapp.presentation.recyclerview.MoviesAdapter
 import com.projectapp.moviesapp.presentation.viewmodel.MoviesListViewModel
 import com.projectapp.moviesapp.presentation.viewmodel.factory.MoviesListViewModelFactory

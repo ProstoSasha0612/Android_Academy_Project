@@ -16,7 +16,11 @@ class MovieRepositoryImpl private constructor(
     override suspend fun loadPopularMovies(pageNumber: Int): List<JsonMovie> =
         remoteDataSource.loadPopularMovies(pageNumber)
 
-    override suspend fun loadGenres() = remoteDataSource.loadGenres()
+    override suspend fun loadGenres() {
+        remoteDataSource.loadGenres()
+        localDataSource.geAllGenresFromDb()
+
+    }
 
     companion object {
         private var instance: MovieRepository? = null

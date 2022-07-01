@@ -13,8 +13,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.projectapp.moviesapp.R
-import com.projectapp.moviesapp.domain.model.Actor
-import com.projectapp.moviesapp.domain.model.Movie
+import com.projectapp.moviesapp.data.model.Actor
+import com.projectapp.moviesapp.data.model.Movie
 import com.projectapp.moviesapp.presentation.recyclerview.ActorsAdapter
 import com.projectapp.moviesapp.databinding.FragmentMovieDetailsBinding
 import com.projectapp.moviesapp.presentation.viewmodel.MovieDetailsViewModel

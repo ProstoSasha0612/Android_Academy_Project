@@ -12,10 +12,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.projectapp.moviesapp.R
-import com.projectapp.moviesapp.domain.model.Movie
+import com.projectapp.moviesapp.data.model.Movie
 import com.projectapp.moviesapp.databinding.ViewHolderMovieBinding
-import com.projectapp.moviesapp.domain.usecases.Extra
-import com.projectapp.moviesapp.presentation.ui.FragmentMovieDetails
 
 class MoviesAdapter(
     val resources: Resources,

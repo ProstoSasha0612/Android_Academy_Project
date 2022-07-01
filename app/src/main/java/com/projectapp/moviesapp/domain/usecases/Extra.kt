@@ -1,6 +1,6 @@
 package com.projectapp.moviesapp.domain.usecases
 
-import com.projectapp.moviesapp.domain.model.Genre
+import com.projectapp.moviesapp.data.model.Genre
 
 object Extra {
     fun getGenresText(genres: List<Genre>?): String {

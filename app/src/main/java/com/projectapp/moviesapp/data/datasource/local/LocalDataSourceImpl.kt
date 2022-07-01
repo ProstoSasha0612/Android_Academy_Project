@@ -1,16 +1,25 @@
 package com.projectapp.moviesapp.data.datasource.local
 
 import android.content.Context
-import com.projectapp.moviesapp.domain.model.Genre
+import com.projectapp.moviesapp.data.model.Genre
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
-class LocalDataSourceImpl(private val context: Context) : LocalDataSource {
+class LocalDataSourceImpl(context: Context) : LocalDataSource {
 
-    private val db = FilmDataBase.create(context)
-    override fun saveGenresToDb(genres: List<Genre>) {
-        TODO("Not yet implemented")
+    private val dao = FilmDataBase.create(context).build().genresDao
+
+    override suspend fun saveGenresToDb(genres: List<Genre>) = withContext(Dispatchers.IO) {
+        genres.forEach {
+            dao.addGenre(it)
+        }
     }
 
-    override fun getGenresFromDb(): List<Genre> {
-        TODO("Not yet implemented")
+    override suspend fun geAllGenresFromDb(): List<Genre> = withContext(Dispatchers.IO) {
+        dao.getAllGenres()
+    }
+
+    override suspend fun getGenreById(id: Int): Genre = withContext(Dispatchers.IO) {
+        dao.getGenreById(id)
     }
 }

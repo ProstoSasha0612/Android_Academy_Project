@@ -1,8 +1,7 @@
 package com.projectapp.moviesapp.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.projectapp.moviesapp.domain.model.Movie
-import com.projectapp.moviesapp.domain.usecases.Extra
+import com.projectapp.moviesapp.data.model.Movie
 
 class MovieDetailsViewModel(
     val movie: Movie?,

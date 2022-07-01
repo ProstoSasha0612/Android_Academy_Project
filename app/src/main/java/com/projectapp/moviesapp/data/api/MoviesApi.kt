@@ -1,7 +1,7 @@
 package com.projectapp.moviesapp.data.api
 
 import com.projectapp.moviesapp.data.model.JsonMoviesPage
-import com.projectapp.moviesapp.domain.model.GenreResponse
+import com.projectapp.moviesapp.data.model.GenreResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
