@@ -15,7 +15,7 @@ abstract class FilmDataBase : RoomDatabase() {
             context,
             FilmDataBase::class.java,
             DATABASE_NAME
-        )
+        ).build()
 
         private const val DATABASE_NAME = "film-database"
     }

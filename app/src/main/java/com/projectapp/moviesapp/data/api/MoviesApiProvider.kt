@@ -32,7 +32,7 @@ class MoviesApiProvider {
     val moviesApi = retrofit.create<MoviesApi>()
 
     companion object {
-        private const val BASE_URL = "https://api.themoviedb.org/3/"
+        const val BASE_URL = "https://api.themoviedb.org/3/"
 
     }
 }

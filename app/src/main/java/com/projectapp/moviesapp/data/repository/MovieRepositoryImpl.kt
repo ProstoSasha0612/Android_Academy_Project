@@ -5,6 +5,11 @@ import com.projectapp.moviesapp.data.model.JsonMovie
 import com.projectapp.moviesapp.domain.repository.MovieRepository
 import com.projectapp.moviesapp.data.datasource.remotedata.RemoteDataSource
 import com.projectapp.moviesapp.data.datasource.sharedprefs.SharedPrefsDataSource
+import com.projectapp.moviesapp.data.model.Genre
+import com.projectapp.moviesapp.data.model.Movie
+import com.projectapp.moviesapp.data.model.mapToMovie
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class MovieRepositoryImpl private constructor(
     private val remoteDataSource: RemoteDataSource,
@@ -13,13 +18,23 @@ class MovieRepositoryImpl private constructor(
 ) :
     MovieRepository {
 
-    override suspend fun loadPopularMovies(pageNumber: Int): List<JsonMovie> =
-        remoteDataSource.loadPopularMovies(pageNumber)
+    override suspend fun loadPopularMovies(pageNumber: Int): List<Movie> {
+        val list = remoteDataSource.loadPopularMovies(pageNumber)
+        val res = mutableListOf<Movie>()
 
-    override suspend fun loadGenres() {
-        remoteDataSource.loadGenres()
-        localDataSource.geAllGenresFromDb()
+        list.forEach {
+            res.add(it.mapToMovie())
+        }
+        return res
+    }
 
+
+    override suspend fun getAllGenres(): List<Genre> = withContext(Dispatchers.IO) {
+        remoteDataSource.loadAllGenres()
+    }
+
+    override suspend fun saveGenresToDb(genres: List<Genre>) {
+        localDataSource.saveGenresToDb(genres)
     }
 
     companion object {

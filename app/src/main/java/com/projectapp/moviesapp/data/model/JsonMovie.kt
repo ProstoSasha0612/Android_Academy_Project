@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class JsonMovie (
+data class JsonMovie(
     @SerialName("id")
     val id: Long,
 
@@ -47,3 +47,29 @@ data class JsonMovie (
     @SerialName("vote_count")
     val voteCount: Long
 )
+
+fun JsonMovie.mapToMovie(width: Int = 500): Movie {
+    val title = originalTitle
+    val overview = overview
+
+    val startOfImageUrl = "https://image.tmdb.org/t/p/w$width/"
+    val imageUrl = startOfImageUrl + posterPath
+    val detailImageUrl = startOfImageUrl + backdropPath
+
+    val rating = voteAverage / 2
+    val reviewCount = voteCount
+    val pgAge = if (adult) 16 else 13
+    val releaseDate = releaseDate
+
+    return Movie(
+        id = id,
+        title = title,
+        overview = overview,
+        imageUrl = imageUrl,
+        detailImageUrl = detailImageUrl,
+        rating = rating,
+        reviewCount = reviewCount.toInt(),
+        pgAge = pgAge,
+        releaseDate = releaseDate
+    )
+}

@@ -13,7 +13,7 @@ interface MoviesApi {
     suspend fun getPopularMoviesPage(@Query("page") pageNumber: Int): JsonMoviesPage
 
     @GET("genre/movie/list?api_key=$MOVIE_API_KEY&language=en-US")
-    suspend fun getAllGenreIds(): GenreResponse
+    suspend fun getAllGenres(): GenreResponse
 
 //    fd8fc667330a0a7e778a4d14d91de9c8
 

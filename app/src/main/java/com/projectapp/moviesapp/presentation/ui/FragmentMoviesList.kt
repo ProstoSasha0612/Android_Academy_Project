@@ -69,10 +69,10 @@ class FragmentMoviesList : Fragment() {
         binding.rvMoviesList.adapter = moviesAdapter
     }
 
-    private fun updateAdapter(moviesList: List<JsonMovie>) {
+    private fun updateAdapter(moviesList: List<Movie>) {
         Log.d("MYTAG", "All is ok, movies list size = ${moviesList.size}")
         Log.d("MYTAG", "last movie .toSting = ${moviesList.last().title}")
-//        moviesAdapter?.submitList(moviesList)
+        moviesAdapter?.submitList(moviesList)
     }
 
     private fun openMovieDetailsFragment(movie: Movie) {

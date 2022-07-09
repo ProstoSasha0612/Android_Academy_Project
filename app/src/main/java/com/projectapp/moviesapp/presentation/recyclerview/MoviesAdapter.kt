@@ -39,13 +39,12 @@ class MoviesAdapter(
             with(binding) {
                 Glide.with(binding.root).load(movie.imageUrl).into(binding.movieImage)
                 filmNameTv.text = movie.title
-                runningTimeTv.text =
-                    "${movie.runningTime} ${resources.getString(R.string.minutes_text)}"
+                releaseDateTv.text = movie.releaseDate
                 binding.reviewsCountTv.text =
                     "${movie.reviewCount} ${resources.getString(R.string.reviews_text)}"
 //                genreTv.text = Extra.getGenresText(movie.genres)
                 ageRateTv.text = "${movie.pgAge}+"
-                setLikeColor(movie.isLiked)
+//                setLikeColor(movie.isLiked)
                 setRatingStarsColor(movie.rating)
             }
             binding.root.setOnClickListener { onClickListener.onClick(movie) }
@@ -64,7 +63,7 @@ class MoviesAdapter(
             )
         }
 
-        private fun setRatingStarsColor(rating: Int) {
+        private fun setRatingStarsColor(rating: Double) {
             val ratingIcons = listOf(
                 binding.star1Image,
                 binding.star2Image,

@@ -7,7 +7,7 @@ import kotlinx.coroutines.withContext
 
 class LocalDataSourceImpl(context: Context) : LocalDataSource {
 
-    private val dao = FilmDataBase.create(context).build().genresDao
+    private val dao = FilmDataBase.create(context).genresDao
 
     override suspend fun saveGenresToDb(genres: List<Genre>) = withContext(Dispatchers.IO) {
         genres.forEach {

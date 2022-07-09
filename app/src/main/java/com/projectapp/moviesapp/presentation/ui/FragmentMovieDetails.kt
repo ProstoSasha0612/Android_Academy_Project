@@ -54,15 +54,15 @@ class FragmentMovieDetails : Fragment() {
         Glide.with(this).load(movie?.detailImageUrl).into(binding.detailImageIv)
         with(binding) {
             filmNameTv.text = vm.movie?.title
-            descriptionTv.text = vm.movie?.storyLine
+            descriptionTv.text = vm.movie?.overview
             //TODO add rating filling (new empty function)
-            setRatingStarsColor(vm.movie?.rating?:0)
+//            setRatingStarsColor(vm.movie?.rating?:0)
             binding.reviewsCountTv.text =
                 "${vm.movie?.reviewCount} ${resources.getString(R.string.reviews_text)}"
             ageRateTv.text = "${vm.movie?.pgAge}+"
 //            genreTv.text = vm.getGenresText()
         }
-        initActorsRecyclerView(movie?.actors)
+//        initActorsRecyclerView(movie?.actors)
     }
 
     private fun initActorsRecyclerView(actorsList: List<Actor>?) {
