@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
+import androidx.paging.LoadStates
 import androidx.recyclerview.widget.GridLayoutManager
 import com.projectapp.moviesapp.R
 import com.projectapp.moviesapp.data.model.Movie
@@ -86,6 +88,11 @@ class FragmentMoviesList : Fragment() {
     private suspend fun setUpLoadStateFlowObserving() {
         moviesAdapter?.let {
             it.loadStateFlow.collectLatest { loadState ->
+                if (loadState.refresh == LoadState.Loading) {
+                    binding.progressBar.visibility = View.VISIBLE
+                } else {
+                    binding.progressBar.visibility = View.GONE
+                }
                 Toast.makeText(
                     requireContext(),
                     "load state is\n $loadState",
