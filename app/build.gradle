@@ -41,6 +41,7 @@ android {
 
 dependencies {
 
+
     def room_version = "2.4.2"
 
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -85,6 +86,9 @@ dependencies {
     implementation 'com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0'
     /*Logging interceptor*/
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
+
+    /*Paging 3*/
+    implementation "androidx.paging:paging-runtime:3.1.1"
 
     /*Shared Preferences*/
     implementation "androidx.preference:preference:1.2.0"

@@ -19,10 +19,11 @@ class RemoteDataSourceImpl : RemoteDataSource {
 
     override suspend fun loadPopularMovies(pageNumber: Int): List<JsonMovie> =
         withContext(Dispatchers.IO) {
+            Log.d("MYTAGremoteDS", "page loading called")
             val page = moviesApi.getPopularMoviesPage(pageNumber)
-            val genres = moviesApi.getAllGenres()
-            Log.d("MYTAG", "genres list: ${genres.toString()}")
-            Log.d("MYTAG", "page movieslist size = :${page.moviesList.size}")
+            Log.d("MYTAG remoteDS", "page loading ended")
+            Log.d("MYTAG remoteDS", "page movieslist size = :${page.moviesList.size}")
+            Log.d("MYTAG remoteDS", "page movieslist = :${page.moviesList.size}")
             page.moviesList
         }
 

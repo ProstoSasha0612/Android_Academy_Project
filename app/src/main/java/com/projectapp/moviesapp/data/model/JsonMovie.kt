@@ -12,7 +12,7 @@ data class JsonMovie(
     val adult: Boolean,
 
     @SerialName("backdrop_path")
-    val backdropPath: String,
+    val backdropPath: String?,
 
     @SerialName("genre_ids")
     val genreIDS: List<Long>,
@@ -54,7 +54,7 @@ fun JsonMovie.mapToMovie(width: Int = 500): Movie {
 
     val startOfImageUrl = "https://image.tmdb.org/t/p/w$width/"
     val imageUrl = startOfImageUrl + posterPath
-    val detailImageUrl = startOfImageUrl + backdropPath
+    val detailImageUrl = if(backdropPath.isNullOrEmpty()) imageUrl else startOfImageUrl + backdropPath
 
     val rating = voteAverage / 2
     val reviewCount = voteCount

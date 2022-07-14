@@ -5,35 +5,36 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.projectapp.moviesapp.data.model.JsonMovie
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import com.projectapp.moviesapp.data.model.Movie
-import com.projectapp.moviesapp.domain.usecases.movielist.SaveGenresToDbUSeCase
+import com.projectapp.moviesapp.domain.usecases.movielist.LoadGenresToDbUseCase
 import com.projectapp.moviesapp.domain.usecases.movielist.LoadMoviesUseCase
+import com.projectapp.moviesapp.presentation.recyclerview.MovieDataSource
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.launch
 
 class MoviesListViewModel(
     private val loadMoviesUseCase: LoadMoviesUseCase,
-    private val saveGenresToDbUSeCase: SaveGenresToDbUSeCase
+    private val loadGenresToDbUSeCase: LoadGenresToDbUseCase
 ) : ViewModel() {
 
-    private val _moviesLiveData = MutableLiveData<List<Movie>>()
-    val moviesLiveData: LiveData<List<Movie>> get() = _moviesLiveData
+    val movieListData = Pager(config = PagingConfig(pageSize = PAGE_SIZE)) {
+        Log.d("MYTAG","Pager configured")
+        MovieDataSource(loadMoviesUseCase)
+    }.flow.cachedIn(viewModelScope)
 
-    init {
-        viewModelScope.launch {
-            saveGenresToDbUSeCase()
-//            _moviesLiveData.value = loadMoviesUseCase(1)
-            try {
-                val res = loadMoviesUseCase(1)
-                _moviesLiveData.value = res
-                res.forEach {
-                    Log.d("RETROFIT", it.toString())
-                }
-                Log.d("RETROFIT", loadMoviesUseCase(1).toString())
-            } catch (e: Exception) {
-                Log.d("RETROFIT", e.stackTraceToString())
-            }
-        }
+//    init {
+//        viewModelScope.launch {
+//            loadGenresToDbUSeCase()
+//            val res = loadMoviesUseCase(1)
+//            _moviesLiveData.value = res
+//        }
+//    }
+
+    companion object {
+        const val PAGE_SIZE = 20
     }
 
 }

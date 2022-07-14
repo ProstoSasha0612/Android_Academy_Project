@@ -3,10 +3,14 @@ package com.projectapp.moviesapp.presentation.recyclerview
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.content.res.Resources
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +23,7 @@ class MoviesAdapter(
     val resources: Resources,
     val onClickListener: OnClickListener
 ) :
-    ListAdapter<Movie, MoviesAdapter.MovieViewHolder>(movieDiffUtilCallback) {
+    PagingDataAdapter<Movie, MoviesAdapter.MovieViewHolder>(movieDiffUtilCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -28,7 +32,9 @@ class MoviesAdapter(
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        Log.d("MYTAG", "onBindViewHolder position# $position")
+        Log.d("MYTAG", "onBindViewHolder item# ${getItem(position)}")
+        getItem(position)?.let { holder.bind(it) }
     }
 
     inner class MovieViewHolder(private val binding: ViewHolderMovieBinding) :
@@ -37,7 +43,7 @@ class MoviesAdapter(
         @SuppressLint("SetTextI18n")
         fun bind(movie: Movie) {
             with(binding) {
-                Glide.with(binding.root).load(movie.imageUrl).into(binding.movieImage)
+                Glide.with(binding.root).load(movie.imageUrl).error(ColorDrawable(Color.RED)).into(binding.movieImage)
                 filmNameTv.text = movie.title
                 releaseDateTv.text = movie.releaseDate
                 binding.reviewsCountTv.text =

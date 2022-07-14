@@ -1,6 +1,7 @@
 package com.projectapp.moviesapp.domain.usecases
 
 import com.projectapp.moviesapp.data.model.Genre
+import java.lang.IllegalArgumentException
 
 object Extra {
     fun getGenresText(genres: List<Genre>?): String {

@@ -1,13 +1,12 @@
 package com.projectapp.moviesapp.data.repository
 
 import com.projectapp.moviesapp.data.datasource.local.LocalDataSource
-import com.projectapp.moviesapp.data.model.JsonMovie
-import com.projectapp.moviesapp.domain.repository.MovieRepository
 import com.projectapp.moviesapp.data.datasource.remotedata.RemoteDataSource
 import com.projectapp.moviesapp.data.datasource.sharedprefs.SharedPrefsDataSource
 import com.projectapp.moviesapp.data.model.Genre
 import com.projectapp.moviesapp.data.model.Movie
 import com.projectapp.moviesapp.data.model.mapToMovie
+import com.projectapp.moviesapp.domain.repository.MovieRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

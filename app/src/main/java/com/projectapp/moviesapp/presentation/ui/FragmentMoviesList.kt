@@ -5,16 +5,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.projectapp.moviesapp.R
-import com.projectapp.moviesapp.data.model.JsonMovie
-import com.projectapp.moviesapp.databinding.FragmentMoviesListBinding
 import com.projectapp.moviesapp.data.model.Movie
+import com.projectapp.moviesapp.databinding.FragmentMoviesListBinding
 import com.projectapp.moviesapp.presentation.recyclerview.MoviesAdapter
 import com.projectapp.moviesapp.presentation.viewmodel.MoviesListViewModel
 import com.projectapp.moviesapp.presentation.viewmodel.factory.MoviesListViewModelFactory
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class FragmentMoviesList : Fragment() {
 
@@ -50,12 +54,16 @@ class FragmentMoviesList : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setUpAdapter()
-
-        vm.moviesLiveData.observe(viewLifecycleOwner, this::updateAdapter)
-
+        Log.d("MYTAG", "adapter ready")
+        lifecycleScope.launch {
+            launch {
+                setUpFlowDataObserving()
+            }
+            launch {
+                setUpLoadStateFlowObserving()
+            }
+        }
     }
-
-
 
 
     override fun onDestroy() {
@@ -69,10 +77,23 @@ class FragmentMoviesList : Fragment() {
         binding.rvMoviesList.adapter = moviesAdapter
     }
 
-    private fun updateAdapter(moviesList: List<Movie>) {
-        Log.d("MYTAG", "All is ok, movies list size = ${moviesList.size}")
-        Log.d("MYTAG", "last movie .toSting = ${moviesList.last().title}")
-        moviesAdapter?.submitList(moviesList)
+    private suspend fun setUpFlowDataObserving() {
+        vm.movieListData.collect {
+            moviesAdapter?.submitData(it)
+        }
+    }
+
+    private suspend fun setUpLoadStateFlowObserving() {
+        moviesAdapter?.let {
+            it.loadStateFlow.collectLatest { loadState ->
+                Toast.makeText(
+                    requireContext(),
+                    "load state is\n $loadState",
+                    Toast.LENGTH_SHORT
+                ).show()
+                Log.d("MYTAGS", "Adapter loadState is $loadState")
+            }
+        }
     }
 
     private fun openMovieDetailsFragment(movie: Movie) {
