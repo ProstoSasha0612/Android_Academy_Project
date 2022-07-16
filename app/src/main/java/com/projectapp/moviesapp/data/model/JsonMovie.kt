@@ -30,10 +30,10 @@ data class JsonMovie(
     val popularity: Double,
 
     @SerialName("poster_path")
-    val posterPath: String,
+    val posterPath: String?,
 
     @SerialName("release_date")
-    val releaseDate: String,
+    val releaseDate: String? = null,
 
     @SerialName("title")
     val title: String,
@@ -53,8 +53,9 @@ fun JsonMovie.mapToMovie(width: Int = 500): Movie {
     val overview = overview
 
     val startOfImageUrl = "https://image.tmdb.org/t/p/w$width/"
-    val imageUrl = startOfImageUrl + posterPath
-    val detailImageUrl = if(backdropPath.isNullOrEmpty()) imageUrl else startOfImageUrl + backdropPath
+    val imageUrl = if (posterPath.isNullOrEmpty()) null else startOfImageUrl + posterPath
+    val detailImageUrl =
+        if (backdropPath.isNullOrEmpty()) imageUrl else startOfImageUrl + backdropPath
 
     val rating = voteAverage / 2
     val reviewCount = voteCount

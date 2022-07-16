@@ -10,11 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
-import androidx.paging.LoadStates
 import androidx.recyclerview.widget.GridLayoutManager
 import com.projectapp.moviesapp.R
 import com.projectapp.moviesapp.data.model.Movie
 import com.projectapp.moviesapp.databinding.FragmentMoviesListBinding
+import com.projectapp.moviesapp.presentation.recyclerview.ItemOffsetDecoration
+import com.projectapp.moviesapp.presentation.recyclerview.MovieFooterAdapter
 import com.projectapp.moviesapp.presentation.recyclerview.MoviesAdapter
 import com.projectapp.moviesapp.presentation.viewmodel.MoviesListViewModel
 import com.projectapp.moviesapp.presentation.viewmodel.factory.MoviesListViewModelFactory
@@ -74,9 +75,21 @@ class FragmentMoviesList : Fragment() {
     }
 
     private fun setUpAdapter() {
-        moviesAdapter = MoviesAdapter(resources, movieOnClickListener)
         binding.rvMoviesList.layoutManager = GridLayoutManager(context, 2)
-        binding.rvMoviesList.adapter = moviesAdapter
+        moviesAdapter = MoviesAdapter(resources, movieOnClickListener)
+
+        val concatAdapter = moviesAdapter?.withLoadStateFooter(
+            footer = MovieFooterAdapter {
+                Toast.makeText(
+                    this.context,
+                    "Retry clicked",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        )
+
+        binding.rvMoviesList.adapter = concatAdapter
+        binding.rvMoviesList.addItemDecoration(ItemOffsetDecoration(12))
     }
 
     private suspend fun setUpFlowDataObserving() {
@@ -93,11 +106,6 @@ class FragmentMoviesList : Fragment() {
                 } else {
                     binding.progressBar.visibility = View.GONE
                 }
-                Toast.makeText(
-                    requireContext(),
-                    "load state is\n $loadState",
-                    Toast.LENGTH_SHORT
-                ).show()
                 Log.d("MYTAGS", "Adapter loadState is $loadState")
             }
         }

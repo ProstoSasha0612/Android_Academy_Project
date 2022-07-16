@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.RoundedCorner
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
@@ -15,6 +16,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.MultiTransformation
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.google.android.material.shape.CornerTreatment
 import com.projectapp.moviesapp.R
 import com.projectapp.moviesapp.data.model.Movie
 import com.projectapp.moviesapp.databinding.ViewHolderMovieBinding
@@ -43,7 +47,8 @@ class MoviesAdapter(
         @SuppressLint("SetTextI18n")
         fun bind(movie: Movie) {
             with(binding) {
-                Glide.with(binding.root).load(movie.imageUrl).error(ColorDrawable(Color.RED)).into(binding.movieImage)
+                Glide.with(binding.root).load(movie.imageUrl).error(ColorDrawable(Color.RED))
+                    .into(binding.movieImage)
                 filmNameTv.text = movie.title
                 releaseDateTv.text = movie.releaseDate
                 binding.reviewsCountTv.text =
