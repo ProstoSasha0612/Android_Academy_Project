@@ -7,6 +7,7 @@ import androidx.core.view.isVisible
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.projectapp.moviesapp.data.model.Movie
 import com.projectapp.moviesapp.databinding.ViewHolderMovieBinding
 import com.projectapp.moviesapp.databinding.ViewHolderMovieFooterBinding
 
@@ -38,5 +39,12 @@ class MovieFooterAdapter(private val retry: () -> Unit) :
             binding.retryBtn.isVisible = loadState is LoadState.Error
             binding.tvErrorMessage.isVisible = loadState is LoadState.Error
         }
+    }
+
+    override fun getStateViewType(loadState: LoadState): Int {
+        if (loadState == LoadState.Loading || loadState is LoadState.Error) {
+            return MoviesAdapter.FOOTER_VIEW_TYPE
+        }
+        return MoviesAdapter.MOVIE_VIEW_TYPE
     }
 }

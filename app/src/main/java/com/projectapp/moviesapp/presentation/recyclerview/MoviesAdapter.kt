@@ -7,18 +7,13 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.RoundedCorner
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.MultiTransformation
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.google.android.material.shape.CornerTreatment
 import com.projectapp.moviesapp.R
 import com.projectapp.moviesapp.data.model.Movie
 import com.projectapp.moviesapp.databinding.ViewHolderMovieBinding
@@ -107,7 +102,7 @@ class MoviesAdapter(
     companion object {
         val movieDiffUtilCallback = object : DiffUtil.ItemCallback<Movie>() {
 
-            private val paylaod = Any()
+            private val payload = Any()
 
             override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
                 return oldItem.id == newItem.id
@@ -117,7 +112,10 @@ class MoviesAdapter(
                 return oldItem == newItem
             }
 
-            override fun getChangePayload(oldItem: Movie, newItem: Movie): Any = paylaod
+            override fun getChangePayload(oldItem: Movie, newItem: Movie): Any = payload
         }
+
+        const val MOVIE_VIEW_TYPE = 0
+        const val FOOTER_VIEW_TYPE = 1
     }
 }

@@ -16,6 +16,7 @@ import com.projectapp.moviesapp.data.model.Movie
 import com.projectapp.moviesapp.databinding.FragmentMoviesListBinding
 import com.projectapp.moviesapp.presentation.recyclerview.ItemOffsetDecoration
 import com.projectapp.moviesapp.presentation.recyclerview.MovieFooterAdapter
+import com.projectapp.moviesapp.presentation.recyclerview.FooterSpanSizeLookup
 import com.projectapp.moviesapp.presentation.recyclerview.MoviesAdapter
 import com.projectapp.moviesapp.presentation.viewmodel.MoviesListViewModel
 import com.projectapp.moviesapp.presentation.viewmodel.factory.MoviesListViewModelFactory
@@ -57,7 +58,6 @@ class FragmentMoviesList : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setUpAdapter()
-        Log.d("MYTAG", "adapter ready")
         lifecycleScope.launch {
             launch {
                 setUpFlowDataObserving()
@@ -75,21 +75,20 @@ class FragmentMoviesList : Fragment() {
     }
 
     private fun setUpAdapter() {
-        binding.rvMoviesList.layoutManager = GridLayoutManager(context, 2)
         moviesAdapter = MoviesAdapter(resources, movieOnClickListener)
 
         val concatAdapter = moviesAdapter?.withLoadStateFooter(
-            footer = MovieFooterAdapter {
-                Toast.makeText(
-                    this.context,
-                    "Retry clicked",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+            footer = MovieFooterAdapter(retry = {
+                moviesAdapter?.retry()
+            })
         )
-
+        val layoutManager = GridLayoutManager(context, 2).apply {
+            spanSizeLookup =
+                FooterSpanSizeLookup(concatAdapter, spanCount, MoviesAdapter.FOOTER_VIEW_TYPE)
+        }
+        binding.rvMoviesList.layoutManager = layoutManager
         binding.rvMoviesList.adapter = concatAdapter
-        binding.rvMoviesList.addItemDecoration(ItemOffsetDecoration(12))
+        binding.rvMoviesList.addItemDecoration(ItemOffsetDecoration())
     }
 
     private suspend fun setUpFlowDataObserving() {
