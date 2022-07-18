@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -58,16 +59,11 @@ class FragmentMoviesList : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setUpAdapter()
-        lifecycleScope.launch {
-            launch {
-                setUpFlowDataObserving()
-            }
-            launch {
-                setUpLoadStateFlowObserving()
-            }
-        }
-    }
+        setUpOnClickListeners()
+        setUpFlowDataObserving()
+        setUpLoadStateFlowObserving()
 
+    }
 
     override fun onDestroy() {
         _binding = null
@@ -91,21 +87,29 @@ class FragmentMoviesList : Fragment() {
         binding.rvMoviesList.addItemDecoration(ItemOffsetDecoration())
     }
 
-    private suspend fun setUpFlowDataObserving() {
-        vm.movieListData.collect {
-            moviesAdapter?.submitData(it)
+    private fun setUpOnClickListeners() {
+        binding.retryBtn.setOnClickListener {
+            moviesAdapter?.retry()
         }
     }
 
-    private suspend fun setUpLoadStateFlowObserving() {
-        moviesAdapter?.let {
-            it.loadStateFlow.collectLatest { loadState ->
-                if (loadState.refresh == LoadState.Loading) {
-                    binding.progressBar.visibility = View.VISIBLE
-                } else {
-                    binding.progressBar.visibility = View.GONE
+    private fun setUpFlowDataObserving() {
+        lifecycleScope.launch {
+            vm.movieListData.collect {
+                moviesAdapter?.submitData(it)
+            }
+        }
+    }
+
+    private fun setUpLoadStateFlowObserving() {
+        lifecycleScope.launch {
+            moviesAdapter?.let {
+                it.loadStateFlow.collectLatest { loadState ->
+                    binding.progressBar.isVisible = loadState.source.refresh is LoadState.Loading
+                    binding.retryBtn.isVisible = loadState.source.refresh is LoadState.Error
+                    binding.tvErrorText.isVisible = loadState.source.refresh is LoadState.Error
+                    Log.d("MYTAGS", "Adapter loadState is $loadState")
                 }
-                Log.d("MYTAGS", "Adapter loadState is $loadState")
             }
         }
     }
