@@ -194,4 +194,10 @@
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_marginTop">4dp</item>
     </style>
+
+    <!--Poster cornered shapable imageview-->
+    <style name="ShapeAppereance.PosterImageOverlay" parent="">
+        <item name="cornerSizeTopLeft">@dimen/poster_corners_radius</item>
+        <item name="cornerSizeTopRight">@dimen/poster_corners_radius</item>
+    </style>
 </resources>

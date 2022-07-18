@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="48dp"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/progress_bar_bg" />
+
+    <TextView
+        android:id="@+id/tv_error_message"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="start|center"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:text="Error message" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/retry_btn"
+        android:layout_width="wrap_content"
+        android:textColor="@color/white"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginHorizontal="24dp"
+        android:background="@drawable/selector_gradient_pink_btn"
+        android:backgroundTint="@null"
+        android:layout_weight="0"
+        android:elevation="24dp"
+        android:lineSpacingExtra="10sp"
+        android:text="retry" />
+
+</LinearLayout>

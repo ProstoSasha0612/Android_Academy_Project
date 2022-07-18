@@ -11,7 +11,7 @@ data class Movie(
 
     val overview: String,
 
-    val imageUrl: String,
+    val imageUrl: String?,
 
     val detailImageUrl: String?,
 
@@ -21,7 +21,7 @@ data class Movie(
 
     val pgAge: Int,
 
-    val releaseDate: String
+    val releaseDate: String?
 
 //    val runningTime: Int,
 

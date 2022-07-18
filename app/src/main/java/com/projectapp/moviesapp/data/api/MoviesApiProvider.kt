@@ -9,6 +9,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.create
 
+//TODO fix DIP violation
 class MoviesApiProvider {
     private val json = Json {
         ignoreUnknownKeys = true

@@ -6,13 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.projectapp.moviesapp.R
 import com.projectapp.moviesapp.data.model.Movie
 import com.projectapp.moviesapp.databinding.FragmentMoviesListBinding
+import com.projectapp.moviesapp.presentation.recyclerview.ItemOffsetDecoration
+import com.projectapp.moviesapp.presentation.recyclerview.MovieFooterAdapter
+import com.projectapp.moviesapp.presentation.recyclerview.FooterSpanSizeLookup
 import com.projectapp.moviesapp.presentation.recyclerview.MoviesAdapter
 import com.projectapp.moviesapp.presentation.viewmodel.MoviesListViewModel
 import com.projectapp.moviesapp.presentation.viewmodel.factory.MoviesListViewModelFactory
@@ -54,17 +59,11 @@ class FragmentMoviesList : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setUpAdapter()
-        Log.d("MYTAG", "adapter ready")
-        lifecycleScope.launch {
-            launch {
-                setUpFlowDataObserving()
-            }
-            launch {
-                setUpLoadStateFlowObserving()
-            }
-        }
-    }
+        setUpOnClickListeners()
+        setUpFlowDataObserving()
+        setUpLoadStateFlowObserving()
 
+    }
 
     override fun onDestroy() {
         _binding = null
@@ -73,25 +72,44 @@ class FragmentMoviesList : Fragment() {
 
     private fun setUpAdapter() {
         moviesAdapter = MoviesAdapter(resources, movieOnClickListener)
-        binding.rvMoviesList.layoutManager = GridLayoutManager(context, 2)
-        binding.rvMoviesList.adapter = moviesAdapter
+
+        val concatAdapter = moviesAdapter?.withLoadStateFooter(
+            footer = MovieFooterAdapter(retry = {
+                moviesAdapter?.retry()
+            })
+        )
+        val layoutManager = GridLayoutManager(context, 2).apply {
+            spanSizeLookup =
+                FooterSpanSizeLookup(concatAdapter, spanCount, MoviesAdapter.FOOTER_VIEW_TYPE)
+        }
+        binding.rvMoviesList.layoutManager = layoutManager
+        binding.rvMoviesList.adapter = concatAdapter
+        binding.rvMoviesList.addItemDecoration(ItemOffsetDecoration())
     }
 
-    private suspend fun setUpFlowDataObserving() {
-        vm.movieListData.collect {
-            moviesAdapter?.submitData(it)
+    private fun setUpOnClickListeners() {
+        binding.retryBtn.setOnClickListener {
+            moviesAdapter?.retry()
         }
     }
 
-    private suspend fun setUpLoadStateFlowObserving() {
-        moviesAdapter?.let {
-            it.loadStateFlow.collectLatest { loadState ->
-                Toast.makeText(
-                    requireContext(),
-                    "load state is\n $loadState",
-                    Toast.LENGTH_SHORT
-                ).show()
-                Log.d("MYTAGS", "Adapter loadState is $loadState")
+    private fun setUpFlowDataObserving() {
+        lifecycleScope.launch {
+            vm.movieListData.collect {
+                moviesAdapter?.submitData(it)
+            }
+        }
+    }
+
+    private fun setUpLoadStateFlowObserving() {
+        lifecycleScope.launch {
+            moviesAdapter?.let {
+                it.loadStateFlow.collectLatest { loadState ->
+                    binding.progressBar.isVisible = loadState.source.refresh is LoadState.Loading
+                    binding.retryBtn.isVisible = loadState.source.refresh is LoadState.Error
+                    binding.tvErrorText.isVisible = loadState.source.refresh is LoadState.Error
+                    Log.d("MYTAGS", "Adapter loadState is $loadState")
+                }
             }
         }
     }

@@ -12,7 +12,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.projectapp.moviesapp.R
@@ -43,7 +42,8 @@ class MoviesAdapter(
         @SuppressLint("SetTextI18n")
         fun bind(movie: Movie) {
             with(binding) {
-                Glide.with(binding.root).load(movie.imageUrl).error(ColorDrawable(Color.RED)).into(binding.movieImage)
+                Glide.with(binding.root).load(movie.imageUrl).error(ColorDrawable(Color.RED))
+                    .into(binding.movieImage)
                 filmNameTv.text = movie.title
                 releaseDateTv.text = movie.releaseDate
                 binding.reviewsCountTv.text =
@@ -102,7 +102,7 @@ class MoviesAdapter(
     companion object {
         val movieDiffUtilCallback = object : DiffUtil.ItemCallback<Movie>() {
 
-            private val paylaod = Any()
+            private val payload = Any()
 
             override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
                 return oldItem.id == newItem.id
@@ -112,7 +112,10 @@ class MoviesAdapter(
                 return oldItem == newItem
             }
 
-            override fun getChangePayload(oldItem: Movie, newItem: Movie): Any = paylaod
+            override fun getChangePayload(oldItem: Movie, newItem: Movie): Any = payload
         }
+
+        const val MOVIE_VIEW_TYPE = 0
+        const val FOOTER_VIEW_TYPE = 1
     }
 }

@@ -30,4 +30,10 @@
     <dimen name="actor_card_width">80dp</dimen>
     <dimen name="actor_card_divider">8dp</dimen>
     <!-- Movie Detail screen -->
+
+    <!--Poster shapableImageView-->
+    <dimen name="poster_corners_radius">7dp</dimen>
+
+    <!--Рейгтинг, по жанрам, отзывы + писать самому-->
+
 </resources>
