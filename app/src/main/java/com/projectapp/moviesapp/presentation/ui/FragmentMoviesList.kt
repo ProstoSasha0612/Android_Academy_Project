@@ -6,15 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.IdRes
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.projectapp.moviesapp.R
 import com.projectapp.moviesapp.data.model.Movie
 import com.projectapp.moviesapp.databinding.FragmentMoviesListBinding
+import com.projectapp.moviesapp.domain.usecases.movielist.LoadMoviesUseCase
+import com.projectapp.moviesapp.domain.usecases.movielist.MovieType
 import com.projectapp.moviesapp.presentation.recyclerview.ItemOffsetDecoration
 import com.projectapp.moviesapp.presentation.recyclerview.MovieFooterAdapter
 import com.projectapp.moviesapp.presentation.recyclerview.FooterSpanSizeLookup
@@ -30,11 +35,12 @@ class FragmentMoviesList : Fragment() {
     private var _binding: FragmentMoviesListBinding? = null
     private val binding get() = requireNotNull(_binding)
     private var moviesAdapter: MoviesAdapter? = null
+    private val movieType: MovieType? by lazy { arguments?.getSerializable(MOVIE_TYPE_KEY) as MovieType? }
 
     private val vm by lazy {
         ViewModelProvider(
             this,
-            MoviesListViewModelFactory()
+            MoviesListViewModelFactory(movieType ?: MovieType.POPULAR)
         )[MoviesListViewModel::class.java]
     }
     private val movieOnClickListener by lazy {
@@ -49,7 +55,7 @@ class FragmentMoviesList : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentMoviesListBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -65,9 +71,9 @@ class FragmentMoviesList : Fragment() {
 
     }
 
-    override fun onDestroy() {
+    override fun onDestroyView() {
         _binding = null
-        super.onDestroy()
+        super.onDestroyView()
     }
 
     private fun setUpAdapter() {
@@ -115,13 +121,27 @@ class FragmentMoviesList : Fragment() {
     }
 
     private fun openMovieDetailsFragment(movie: Movie) {
-        parentFragmentManager.beginTransaction()
-            .addToBackStack("MoviesDetailsFragment")
-            .add(R.id.fragment_container, FragmentMovieDetails.newInstance(movie))
-            .commit()
+        findNavController().navigate(
+            resId = R.id.fragmentMovieDetails,
+            args = bundleOf(
+                Pair(FragmentMovieDetails.KEY_MOVIE, movie)
+            )
+        )
+//        parentFragmentManager.beginTransaction()
+//            .addToBackStack("MoviesDetailsFragment")
+//            .replace(R.id.fragment_container, FragmentMovieDetails.newInstance(movie))
+//            .commit()
     }
 
     companion object {
-        fun newInstance() = FragmentMoviesList()
+        fun newInstance(movieType: MovieType): FragmentMoviesList {
+            return FragmentMoviesList().apply {
+                arguments = bundleOf().also {
+                    it.putSerializable(MOVIE_TYPE_KEY, movieType)
+                }
+            }
+        }
+
+        const val MOVIE_TYPE_KEY = "movie type key"
     }
 }

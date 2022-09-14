@@ -49,6 +49,11 @@ class FragmentMovieDetails : Fragment() {
         fillDataToViews()
     }
 
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
+
     private fun fillDataToViews() {
 //        val movie = arguments?.getParcelable<Movie>(KEY_MOVIE)
         Glide.with(this).load(movie?.detailImageUrl).into(binding.detailImageIv)

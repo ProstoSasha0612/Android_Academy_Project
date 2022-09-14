@@ -37,5 +37,14 @@
     <string name="cast_title">Cast</string>
     <string name="error_movie_not_found">Sorry! Something went wrong - we can not find this movie in the system.</string>
     <string name="retry_text">retry</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- Movie Details screen -->
+
+    <!--Movie types names-->
+    <string name="movie_type_popular">Popular</string>
+    <string name="movie_type_top_rated">Top rated</string>
+    <string name="movie_type_latest">Latest</string>
+    <string name="movie_type_upcoming">Upcoming</string>
+
 </resources>

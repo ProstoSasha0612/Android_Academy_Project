@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navHostFragment">
+
+    <fragment
+        android:id="@+id/navHostFragment"
+        android:name="com.projectapp.moviesapp.presentation.ui.NavHostFragment"
+        android:label="fragment_nav_host"
+        tools:layout="@layout/fragment_nav_host" >
+        <action
+            android:id="@+id/action_navHostFragment_to_fragmentMoviesListPager"
+            app:destination="@id/fragmentMoviesListPager" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentMoviesList"
+        android:name="com.projectapp.moviesapp.presentation.ui.FragmentMoviesList"
+        android:label="FragmentMoviesList"
+        tools:layout="@layout/fragment_movies_list">
+        <action
+            android:id="@+id/action_fragmentMoviesList_to_fragmentMovieDetails"
+            app:destination="@id/fragmentMovieDetails" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentMovieDetails"
+        android:name="com.projectapp.moviesapp.presentation.ui.FragmentMovieDetails"
+        android:label="FragmentMovieDetails"
+        tools:layout="@layout/fragment_movie_details"/>
+    <fragment
+        android:id="@+id/fragmentMoviesListPager"
+        android:name="com.projectapp.moviesapp.presentation.ui.FragmentMoviesListPager"
+        android:label="FragmentMoviesListPager"
+        tools:layout="@layout/fragment_movies_list_pager">
+        <action
+            android:id="@+id/action_fragmentMoviesListPager_to_fragmentMoviesList"
+            app:destination="@id/fragmentMoviesList" />
+        <action
+            android:id="@+id/action_fragmentMoviesListPager_to_fragmentMovieDetails"
+            app:destination="@id/fragmentMovieDetails" />
+    </fragment>
+</navigation>

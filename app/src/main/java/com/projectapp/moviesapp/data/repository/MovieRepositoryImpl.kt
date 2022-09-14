@@ -7,8 +7,10 @@ import com.projectapp.moviesapp.data.model.Genre
 import com.projectapp.moviesapp.data.model.Movie
 import com.projectapp.moviesapp.data.model.mapToMovie
 import com.projectapp.moviesapp.domain.repository.MovieRepository
+import com.projectapp.moviesapp.domain.usecases.movielist.MovieType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+
 
 class MovieRepositoryImpl private constructor(
     private val remoteDataSource: RemoteDataSource,
@@ -17,8 +19,8 @@ class MovieRepositoryImpl private constructor(
 ) :
     MovieRepository {
 
-    override suspend fun loadPopularMovies(pageNumber: Int): List<Movie> {
-        val list = remoteDataSource.loadPopularMovies(pageNumber)
+    override suspend fun loadMovies(pageNumber: Int,movieType: MovieType): List<Movie> {
+        val list = remoteDataSource.loadPopularMovies(pageNumber,movieType)
         val res = mutableListOf<Movie>()
 
         list.forEach {

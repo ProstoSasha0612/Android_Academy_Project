@@ -6,6 +6,7 @@ import androidx.paging.PagingState
 import com.projectapp.moviesapp.data.model.Movie
 import com.projectapp.moviesapp.domain.usecases.movielist.LoadMoviesUseCase
 import retrofit2.HttpException
+import java.net.ConnectException
 
 class MovieDataSource(val loadMoviesUseCase: LoadMoviesUseCase) : PagingSource<Int, Movie>() {
 
@@ -26,14 +27,24 @@ class MovieDataSource(val loadMoviesUseCase: LoadMoviesUseCase) : PagingSource<I
             val response = loadMoviesUseCase(currentLoadingPage)
             Log.d("MYTAG", "page number# $currentLoadingPage loaded")
 
+
             val prevKey = if (currentLoadingPage == 1) null else currentLoadingPage - 1
-            val nextKey = currentLoadingPage + 1
+            val nextKey = if (response.isNotEmpty()) currentLoadingPage + 1 else null
+
+//            if (response.isEmpty()) {
+//                return LoadResult.Page(response, prevKey = prevKey, nextKey = null)
+//            }
+
             LoadResult.Page(
                 data = response,
                 prevKey = prevKey,
                 nextKey = nextKey
             )
         } catch (e: Exception) {
+            if(e is ConnectException){
+                Log.d("MYTAG1","MovieDataSource LoadResult reconnect called")
+                load(params)
+            }
             LoadResult.Error(e)
         }
     }
