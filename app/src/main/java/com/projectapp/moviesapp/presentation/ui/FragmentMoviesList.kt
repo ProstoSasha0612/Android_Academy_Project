@@ -10,8 +10,10 @@ import androidx.annotation.IdRes
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
@@ -100,9 +102,11 @@ class FragmentMoviesList : Fragment() {
     }
 
     private fun setUpFlowDataObserving() {
-        lifecycleScope.launch {
-            vm.movieListData.collect {
-                moviesAdapter?.submitData(it)
+        lifecycleScope.launch{
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                vm.movieListData.collect {
+                    moviesAdapter?.submitData(it)
+                }
             }
         }
     }
@@ -127,10 +131,6 @@ class FragmentMoviesList : Fragment() {
                 Pair(FragmentMovieDetails.KEY_MOVIE, movie)
             )
         )
-//        parentFragmentManager.beginTransaction()
-//            .addToBackStack("MoviesDetailsFragment")
-//            .replace(R.id.fragment_container, FragmentMovieDetails.newInstance(movie))
-//            .commit()
     }
 
     companion object {

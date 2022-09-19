@@ -18,22 +18,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        if(savedInstanceState == null){
-            openMoviesListFragment()
-        }
-    }
-
-//    private fun openMoviesListFragment(){
-//        supportFragmentManager.beginTransaction()
-//            .replace(R.id.fragment_container,FragmentMoviesListPager.newInstance())
-//            .addToBackStack("ViewPagerFragment")
-////            .replace(R.id.fragment_container, FragmentMoviesList.newInstance(MovieType.POPULAR))
-//            .commit()
-//
-//    }
-
-    private fun openMoviesListFragment(){
-        val navController = findNavController(R.id.nav_host_fragment)
-        navController.navigate(R.id.action_navHostFragment_to_fragmentMoviesListPager)
     }
 }

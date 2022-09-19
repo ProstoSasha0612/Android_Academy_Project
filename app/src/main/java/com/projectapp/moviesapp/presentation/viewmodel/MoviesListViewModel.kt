@@ -25,13 +25,6 @@ class MoviesListViewModel(
         MovieDataSource(loadMoviesUseCase)
     }.flow.cachedIn(viewModelScope)
 
-//    init {
-//        viewModelScope.launch {
-//            loadGenresToDbUSeCase()
-//            val res = loadMoviesUseCase(1)
-//            _moviesLiveData.value = res
-//        }
-//    }
 
     companion object {
         const val PAGE_SIZE = 20

@@ -19,7 +19,6 @@ class FragmentMoviesListPager : Fragment() {
     private val binding get() = requireNotNull(_binding)
 
     private var mediator: TabLayoutMediator? = null
-    private var viewPager: ViewPager2? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,8 +27,13 @@ class FragmentMoviesListPager : Fragment() {
     ): View {
         _binding = FragmentMoviesListPagerBinding.inflate(layoutInflater, container, false)
 
-        viewPager = binding.viewpager
-        viewPager?.adapter =
+        setUpTabLayoutMediator()
+
+        return binding.root
+    }
+
+    private fun setUpTabLayoutMediator() {
+        binding.viewpager.adapter =
             PagerFragmentAdapter(childFragmentManager, viewLifecycleOwner.lifecycle)
 
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewpager) { tab, position ->
@@ -41,42 +45,14 @@ class FragmentMoviesListPager : Fragment() {
             }
         }
         mediator?.attach()
-
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-//        viewPager = binding.viewpager
-//        viewPager?.adapter = PagerFragmentAdapter(childFragmentManager,viewLifecycleOwner.lifecycle)
-
-//        mediator = TabLayoutMediator(binding.tabLayout, binding.viewpager) { tab, position ->
-//            tab.text = MovieType.values()[position].typeName
-//        }
-//        mediator?.attach()
     }
 
     override fun onDestroyView() {
         Log.d("MYTAG", "onDestroyView called")
         mediator?.detach()
         mediator = null
-        binding.viewpager.adapter = null
-        viewPager?.adapter = null
-        viewPager = null
         _binding = null
         super.onDestroyView()
-    }
-
-    override fun onDestroy() {
-        Log.d("MYTAG", "onDestroy called")
-        mediator?.detach()
-        mediator = null
-        binding.viewpager.adapter = null
-        viewPager?.adapter = null
-        viewPager = null
-        _binding = null
-        super.onDestroy()
     }
 
 

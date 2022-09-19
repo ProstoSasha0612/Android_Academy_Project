@@ -3,17 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/navHostFragment">
+    app:startDestination="@id/fragmentMoviesListPager">
 
-    <fragment
-        android:id="@+id/navHostFragment"
-        android:name="com.projectapp.moviesapp.presentation.ui.NavHostFragment"
-        android:label="fragment_nav_host"
-        tools:layout="@layout/fragment_nav_host" >
-        <action
-            android:id="@+id/action_navHostFragment_to_fragmentMoviesListPager"
-            app:destination="@id/fragmentMoviesListPager" />
-    </fragment>
     <fragment
         android:id="@+id/fragmentMoviesList"
         android:name="com.projectapp.moviesapp.presentation.ui.FragmentMoviesList"
