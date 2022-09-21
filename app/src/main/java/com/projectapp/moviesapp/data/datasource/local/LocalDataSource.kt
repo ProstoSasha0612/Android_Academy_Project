@@ -1,8 +1,11 @@
 package com.projectapp.moviesapp.data.datasource.local
 
 import com.projectapp.moviesapp.data.model.Genre
+import com.projectapp.moviesapp.data.model.UiMovie
 
-interface   LocalDataSource {
+interface LocalDataSource {
+
+    suspend fun saveMoviesToDb(uiMovies: List<UiMovie>)
 
     suspend fun saveGenresToDb(genres: List<Genre>)
 

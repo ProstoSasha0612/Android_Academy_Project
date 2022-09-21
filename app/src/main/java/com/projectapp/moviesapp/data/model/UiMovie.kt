@@ -1,10 +1,11 @@
 package com.projectapp.moviesapp.data.model
 
 import android.os.Parcelable
+import kotlinx.android.parcel.RawValue
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Movie(
+data class UiMovie(
     val id: Long,
 
     val title: String,
@@ -21,11 +22,9 @@ data class Movie(
 
     val pgAge: Int,
 
-    val releaseDate: String?
+    val releaseDate: String?,
 
-//    val runningTime: Int,
-
-//    val genres: List<Genre>,
+    val genres: List<Genre>,
 
 //    val actors: List<Actor>,
 

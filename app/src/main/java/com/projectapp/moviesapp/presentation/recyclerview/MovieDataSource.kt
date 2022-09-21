@@ -3,14 +3,13 @@ package com.projectapp.moviesapp.presentation.recyclerview
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.projectapp.moviesapp.data.model.Movie
+import com.projectapp.moviesapp.data.model.UiMovie
 import com.projectapp.moviesapp.domain.usecases.movielist.LoadMoviesUseCase
-import retrofit2.HttpException
 import java.net.ConnectException
 
-class MovieDataSource(val loadMoviesUseCase: LoadMoviesUseCase) : PagingSource<Int, Movie>() {
+class MovieDataSource(val loadMoviesUseCase: LoadMoviesUseCase) : PagingSource<Int, UiMovie>() {
 
-    override fun getRefreshKey(state: PagingState<Int, Movie>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, UiMovie>): Int? {
 //        return state.anchorPosition?.let {
 //            state.closestPageToPosition(it)?.prevKey?.plus(1)
 //                ?: state.closestPageToPosition(it)?.nextKey?.minus(1)
@@ -21,7 +20,7 @@ class MovieDataSource(val loadMoviesUseCase: LoadMoviesUseCase) : PagingSource<I
         return page.prevKey?.plus(1) ?: page.nextKey?.minus(1)
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, UiMovie> {
         return try {
             val currentLoadingPage = params.key ?: 1
             val response = loadMoviesUseCase(currentLoadingPage)

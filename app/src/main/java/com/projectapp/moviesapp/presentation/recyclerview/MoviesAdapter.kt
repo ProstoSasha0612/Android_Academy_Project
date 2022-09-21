@@ -15,14 +15,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.projectapp.moviesapp.R
-import com.projectapp.moviesapp.data.model.Movie
+import com.projectapp.moviesapp.data.model.UiMovie
 import com.projectapp.moviesapp.databinding.ViewHolderMovieBinding
+import com.projectapp.moviesapp.domain.usecases.Extra
 
 class MoviesAdapter(
     val resources: Resources,
     val onClickListener: OnClickListener
 ) :
-    PagingDataAdapter<Movie, MoviesAdapter.MovieViewHolder>(movieDiffUtilCallback) {
+    PagingDataAdapter<UiMovie, MoviesAdapter.MovieViewHolder>(uiMovieDiffUtilCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -40,20 +41,20 @@ class MoviesAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
-        fun bind(movie: Movie) {
+        fun bind(uiMovie: UiMovie) {
             with(binding) {
-                Glide.with(binding.root).load(movie.imageUrl).error(ColorDrawable(Color.RED))
+                Glide.with(binding.root).load(uiMovie.imageUrl).error(ColorDrawable(Color.RED))
                     .into(binding.movieImage)
-                filmNameTv.text = movie.title
-                releaseDateTv.text = movie.releaseDate
+                filmNameTv.text = uiMovie.title
+                releaseDateTv.text = uiMovie.releaseDate
                 binding.reviewsCountTv.text =
-                    "${movie.reviewCount} ${resources.getString(R.string.reviews_text)}"
-//                genreTv.text = Extra.getGenresText(movie.genres)
-                ageRateTv.text = "${movie.pgAge}+"
+                    "${uiMovie.reviewCount} ${resources.getString(R.string.reviews_text)}"
+                genreTv.text = Extra.getGenresText(uiMovie.genres)
+                ageRateTv.text = "${uiMovie.pgAge}+"
 //                setLikeColor(movie.isLiked)
-                setRatingStarsColor(movie.rating)
+                setRatingStarsColor(uiMovie.rating)
             }
-            binding.root.setOnClickListener { onClickListener.onClick(movie) }
+            binding.root.setOnClickListener { onClickListener.onClick(uiMovie) }
         }
 
         private fun setLikeColor(isLiked: Boolean) {
@@ -96,23 +97,23 @@ class MoviesAdapter(
     }
 
     interface OnClickListener {
-        fun onClick(movie: Movie)
+        fun onClick(uiMovie: UiMovie)
     }
 
     companion object {
-        val movieDiffUtilCallback = object : DiffUtil.ItemCallback<Movie>() {
+        val uiMovieDiffUtilCallback = object : DiffUtil.ItemCallback<UiMovie>() {
 
             private val payload = Any()
 
-            override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+            override fun areItemsTheSame(oldItem: UiMovie, newItem: UiMovie): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+            override fun areContentsTheSame(oldItem: UiMovie, newItem: UiMovie): Boolean {
                 return oldItem == newItem
             }
 
-            override fun getChangePayload(oldItem: Movie, newItem: Movie): Any = payload
+            override fun getChangePayload(oldItem: UiMovie, newItem: UiMovie): Any = payload
         }
 
         const val MOVIE_VIEW_TYPE = 0
