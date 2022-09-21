@@ -2,6 +2,7 @@ package com.projectapp.moviesapp.presentation.ui
 
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +15,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.projectapp.moviesapp.R
 import com.projectapp.moviesapp.data.model.Actor
-import com.projectapp.moviesapp.data.model.Movie
+import com.projectapp.moviesapp.data.model.UiMovie
 import com.projectapp.moviesapp.presentation.recyclerview.ActorsAdapter
 import com.projectapp.moviesapp.databinding.FragmentMovieDetailsBinding
+import com.projectapp.moviesapp.domain.usecases.Extra
 import com.projectapp.moviesapp.presentation.viewmodel.MovieDetailsViewModel
 import com.projectapp.moviesapp.presentation.viewmodel.factory.MovieDetailsViewModelFactory
 
@@ -26,11 +28,11 @@ class FragmentMovieDetails : Fragment() {
     private var _binding: FragmentMovieDetailsBinding? = null
     private val binding get() = requireNotNull(_binding)
 
-    private val movie by lazy { arguments?.getParcelable<Movie>(KEY_MOVIE) }
+    private val uiMovie by lazy { arguments?.getParcelable<UiMovie>(KEY_MOVIE)?: throw IllegalArgumentException() }
     private val vm by lazy {
         ViewModelProvider(
             this,
-            MovieDetailsViewModelFactory(movie)
+            MovieDetailsViewModelFactory(uiMovie)
         ).get(MovieDetailsViewModel::class.java)
     }
 
@@ -56,16 +58,18 @@ class FragmentMovieDetails : Fragment() {
 
     private fun fillDataToViews() {
 //        val movie = arguments?.getParcelable<Movie>(KEY_MOVIE)
-        Glide.with(this).load(movie?.detailImageUrl).into(binding.detailImageIv)
+        Glide.with(this).load(vm.uiMovie?.detailImageUrl).into(binding.detailImageIv)
         with(binding) {
-            filmNameTv.text = vm.movie?.title
-            descriptionTv.text = vm.movie?.overview
+
+            filmNameTv.text = vm.uiMovie?.title
+            descriptionTv.text = vm.uiMovie?.overview
             //TODO add rating filling (new empty function)
 //            setRatingStarsColor(vm.movie?.rating?:0)
             binding.reviewsCountTv.text =
-                "${vm.movie?.reviewCount} ${resources.getString(R.string.reviews_text)}"
-            ageRateTv.text = "${vm.movie?.pgAge}+"
-//            genreTv.text = vm.getGenresText()
+                "${vm.uiMovie?.reviewCount} ${resources.getString(R.string.reviews_text)}"
+            ageRateTv.text = "${vm.uiMovie?.pgAge}+"
+            Log.d("MYTAGUIMOVIE",vm.uiMovie.genres.toString())
+            genreTv.text = Extra.getGenresText(vm.uiMovie?.genres)
         }
 //        initActorsRecyclerView(movie?.actors)
     }
@@ -103,8 +107,8 @@ class FragmentMovieDetails : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(movie: Movie): FragmentMovieDetails {
-            val bundle = bundleOf(Pair(KEY_MOVIE, movie))
+        fun newInstance(uiMovie: UiMovie): FragmentMovieDetails {
+            val bundle = bundleOf(Pair(KEY_MOVIE, uiMovie))
             return FragmentMovieDetails().apply {
                 this.arguments = bundle
             }

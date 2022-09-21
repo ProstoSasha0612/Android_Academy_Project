@@ -4,8 +4,9 @@ import com.projectapp.moviesapp.data.datasource.local.LocalDataSource
 import com.projectapp.moviesapp.data.datasource.remotedata.RemoteDataSource
 import com.projectapp.moviesapp.data.datasource.sharedprefs.SharedPrefsDataSource
 import com.projectapp.moviesapp.data.model.Genre
-import com.projectapp.moviesapp.data.model.Movie
-import com.projectapp.moviesapp.data.model.mapToMovie
+import com.projectapp.moviesapp.data.model.JsonMovie
+import com.projectapp.moviesapp.data.model.UiMovie
+import com.projectapp.moviesapp.data.model.mapToUiMovie
 import com.projectapp.moviesapp.domain.repository.MovieRepository
 import com.projectapp.moviesapp.domain.usecases.movielist.MovieType
 import kotlinx.coroutines.Dispatchers
@@ -15,18 +16,13 @@ import kotlinx.coroutines.withContext
 class MovieRepositoryImpl private constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
-    private val sharedPrefsDataSource: SharedPrefsDataSource
+    private val sharedPrefsDataSource: SharedPrefsDataSource,
 ) :
     MovieRepository {
 
-    override suspend fun loadMovies(pageNumber: Int,movieType: MovieType): List<Movie> {
-        val list = remoteDataSource.loadPopularMovies(pageNumber,movieType)
-        val res = mutableListOf<Movie>()
-
-        list.forEach {
-            res.add(it.mapToMovie())
-        }
-        return res
+    override suspend fun loadMovies(pageNumber: Int, movieType: MovieType): List<UiMovie> {
+        val list = remoteDataSource.loadPopularMovies(pageNumber, movieType)
+        return mapMovieListToUiMovieList(list)
     }
 
 
@@ -38,13 +34,26 @@ class MovieRepositoryImpl private constructor(
         localDataSource.saveGenresToDb(genres)
     }
 
+    private suspend fun mapMovieListToUiMovieList(list: List<JsonMovie>): List<UiMovie> {
+        val res = mutableListOf<UiMovie>()
+        list.forEach { movie ->
+            val genreList = mutableListOf<Genre>()
+            movie.genreIDS.forEach { genreId ->
+                val genre = localDataSource.getGenreById(genreId.toInt())
+                genreList.add(genre)
+            }
+            res.add(movie.mapToUiMovie(genreList))
+        }
+        return res
+    }
+
     companion object {
         private var instance: MovieRepository? = null
 
         fun initialize(
             remoteDataSource: RemoteDataSource,
             localDataSource: LocalDataSource,
-            sharedPrefsDataSource: SharedPrefsDataSource
+            sharedPrefsDataSource: SharedPrefsDataSource,
         ): MovieRepository {
             if (instance == null) {
                 instance =

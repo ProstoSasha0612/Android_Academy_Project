@@ -5,8 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.annotation.IdRes
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -18,9 +16,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.projectapp.moviesapp.R
-import com.projectapp.moviesapp.data.model.Movie
+import com.projectapp.moviesapp.data.model.UiMovie
 import com.projectapp.moviesapp.databinding.FragmentMoviesListBinding
-import com.projectapp.moviesapp.domain.usecases.movielist.LoadMoviesUseCase
 import com.projectapp.moviesapp.domain.usecases.movielist.MovieType
 import com.projectapp.moviesapp.presentation.recyclerview.ItemOffsetDecoration
 import com.projectapp.moviesapp.presentation.recyclerview.MovieFooterAdapter
@@ -28,7 +25,6 @@ import com.projectapp.moviesapp.presentation.recyclerview.FooterSpanSizeLookup
 import com.projectapp.moviesapp.presentation.recyclerview.MoviesAdapter
 import com.projectapp.moviesapp.presentation.viewmodel.MoviesListViewModel
 import com.projectapp.moviesapp.presentation.viewmodel.factory.MoviesListViewModelFactory
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -47,8 +43,8 @@ class FragmentMoviesList : Fragment() {
     }
     private val movieOnClickListener by lazy {
         object : MoviesAdapter.OnClickListener {
-            override fun onClick(movie: Movie) {
-                openMovieDetailsFragment(movie)
+            override fun onClick(uiMovie: UiMovie) {
+                openMovieDetailsFragment(uiMovie)
             }
         }
     }
@@ -124,11 +120,11 @@ class FragmentMoviesList : Fragment() {
         }
     }
 
-    private fun openMovieDetailsFragment(movie: Movie) {
+    private fun openMovieDetailsFragment(uiMovie: UiMovie) {
         findNavController().navigate(
             resId = R.id.fragmentMovieDetails,
             args = bundleOf(
-                Pair(FragmentMovieDetails.KEY_MOVIE, movie)
+                Pair(FragmentMovieDetails.KEY_MOVIE, uiMovie)
             )
         )
     }

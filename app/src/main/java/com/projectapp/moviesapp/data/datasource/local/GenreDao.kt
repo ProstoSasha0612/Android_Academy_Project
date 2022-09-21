@@ -9,10 +9,10 @@ import com.projectapp.moviesapp.data.model.Genre
 @Dao
 interface GenreDao {
 
-    @Query("SELECT * FROM genres")
+    @Query("SELECT * FROM genres_table")
     suspend fun getAllGenres(): List<Genre>
 
-    @Query("SELECT * FROM genres WHERE id = :id")
+    @Query("SELECT * FROM genres_table WHERE id = :id")
     suspend fun getGenreById(id: Int): Genre
 
     @Insert(onConflict = REPLACE)

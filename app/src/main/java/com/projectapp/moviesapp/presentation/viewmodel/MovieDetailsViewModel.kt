@@ -1,10 +1,10 @@
 package com.projectapp.moviesapp.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.projectapp.moviesapp.data.model.Movie
+import com.projectapp.moviesapp.data.model.UiMovie
 
 class MovieDetailsViewModel(
-    val movie: Movie?,
+    val uiMovie: UiMovie,
 ) : ViewModel() {
 
 //    fun getGenresText() = Extra.getGenresText(movie?.genres)
