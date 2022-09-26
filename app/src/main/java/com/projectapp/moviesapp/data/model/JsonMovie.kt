@@ -24,7 +24,7 @@ data class JsonMovie(
 
     @SerialName("genre_ids")
     @ColumnInfo(name = "genre_ids")
-    val genreIDS: List<Long>, //TODO здесь был LONG вместо INT !!!!!
+    val genreIDS: List<Long>,
 
     @SerialName("original_language")
     @ColumnInfo(name = "original_language")

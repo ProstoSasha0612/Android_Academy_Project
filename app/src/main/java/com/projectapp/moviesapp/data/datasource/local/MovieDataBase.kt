@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.projectapp.moviesapp.data.model.Genre
 import com.projectapp.moviesapp.data.model.JsonMovie
 
-@Database(entities = [Genre::class, /*JsonMovie::class*/], version = 1)
+@Database(entities = [Genre::class,/* JsonMovie::class*/], version = 1)
 abstract class MovieDataBase : RoomDatabase() {
     abstract val genreDao: GenreDao
 //    abstract val movieDao: MovieDao

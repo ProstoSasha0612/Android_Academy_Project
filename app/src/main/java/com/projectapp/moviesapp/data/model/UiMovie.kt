@@ -25,7 +25,4 @@ data class UiMovie(
     val releaseDate: String?,
 
     val genres: List<Genre>,
-
-//    val actors: List<Actor>,
-
 ) : Parcelable
