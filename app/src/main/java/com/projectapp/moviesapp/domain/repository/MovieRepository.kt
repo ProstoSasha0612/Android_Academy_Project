@@ -18,4 +18,6 @@ interface MovieRepository {
 
     suspend fun getAllGenres(): List<Genre>
 
+
+    suspend fun loadMoviesFromDb(pageNumber: Int, movieType: MovieType)
 }

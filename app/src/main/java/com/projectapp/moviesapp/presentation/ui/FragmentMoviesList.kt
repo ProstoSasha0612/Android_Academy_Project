@@ -65,7 +65,8 @@ class FragmentMoviesList : Fragment() {
         setUpAdapter()
         setUpOnClickListeners()
         setUpFlowDataObserving()
-        setUpLoadStateFlowObserving()
+
+//        setUpLoadStateFlowObserving()
 
     }
 

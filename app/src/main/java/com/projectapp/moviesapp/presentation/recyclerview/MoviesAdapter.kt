@@ -49,8 +49,9 @@ class MoviesAdapter(
                 releaseDateTv.text = uiMovie.releaseDate
                 binding.reviewsCountTv.text =
                     "${uiMovie.reviewCount} ${resources.getString(R.string.reviews_text)}"
+                Log.d("MYTAGGENRE","uiMOvie genres: ${uiMovie.genres}")
                 genreTv.text = Extra.getGenresText(uiMovie.genres)
-                ageRateTv.text = "${uiMovie.pgAge}+"
+                ageRateTv.text = "${uiMovie.age}+"
 //                setLikeColor(movie.isLiked)
                 setRatingStarsColor(uiMovie.rating)
             }

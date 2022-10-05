@@ -1,7 +1,6 @@
 package com.projectapp.moviesapp.data.model
 
 import android.os.Parcelable
-import kotlinx.android.parcel.RawValue
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -18,11 +17,27 @@ data class UiMovie(
 
     val rating: Double,
 
-    val reviewCount: Int,
+    val reviewCount: Long,
 
-    val pgAge: Int,
+    val age: Int,
 
     val releaseDate: String?,
 
     val genres: List<Genre>,
 ) : Parcelable
+
+
+fun UiMovie.mapToJsonMovie(): JsonMovie {
+    return JsonMovie(
+        id = id,
+        adult = this.age > 13,
+        backdropPath = this.imageUrl,
+        genreIDS = this.genres.map { it.id.toLong() },
+        overview = this.overview,
+        posterPath = this.imageUrl,
+        releaseDate = this.releaseDate,
+        title = this.title,
+        voteAverage = this.rating,
+        voteCount = this.reviewCount
+    )
+}
