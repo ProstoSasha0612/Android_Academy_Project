@@ -1,5 +1,6 @@
 package com.projectapp.moviesapp.presentation.viewmodel.factory
 
+import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -10,12 +11,15 @@ import com.projectapp.moviesapp.domain.logic.InternetStatusChecker
 import com.projectapp.moviesapp.domain.usecases.movielist.LoadAndSaveGenresToDbUseCase
 import com.projectapp.moviesapp.domain.usecases.movielist.LoadMoviesUseCase
 import com.projectapp.moviesapp.domain.usecases.movielist.MovieType
+import com.projectapp.moviesapp.presentation.App
 import com.projectapp.moviesapp.presentation.viewmodel.MoviesListViewModel
 
-class MoviesListViewModelFactory(movieType: MovieType, connectivityManager: ConnectivityManager) :
+class MoviesListViewModelFactory(movieType: MovieType, app: App) :
     ViewModelProvider.Factory {
 
     private val movieRepository = MovieRepositoryImpl.get()
+    private val connectivityManager =
+        app.applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     private val internetStatusChecker = object : InternetStatusChecker {
         override fun isInternetOn() = checkInternet(connectivityManager)
     }

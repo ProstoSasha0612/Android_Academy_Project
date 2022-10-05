@@ -40,7 +40,7 @@ class MovieRepositoryImpl private constructor(
         remoteDataSource.loadAllGenres()
     }
 
-    override suspend fun saveGenresToDb(genres: List<Genre>) {
+    override suspend fun saveGenresToDb(genres: List<Genre>) = withContext(Dispatchers.IO) {
         localDataSource.saveGenresToDb(genres)
     }
 

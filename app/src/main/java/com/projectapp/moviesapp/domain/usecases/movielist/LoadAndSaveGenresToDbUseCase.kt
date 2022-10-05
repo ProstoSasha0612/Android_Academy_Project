@@ -9,7 +9,9 @@ class LoadAndSaveGenresToDbUseCase(
 ) {
 
     suspend operator fun invoke() {
-        val genreList = movieRepository.getAllGenres()
-        movieRepository.saveGenresToDb(genres = genreList)
+        if (internetStatusChecker.isInternetOn()) {
+            val genreList = movieRepository.getAllGenres()
+            movieRepository.saveGenresToDb(genres = genreList)
+        }
     }
 }

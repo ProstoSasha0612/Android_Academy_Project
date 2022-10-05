@@ -18,7 +18,7 @@ class MoviesListViewModel(
 
     init {
         viewModelScope.launch {
-//            loadAndSaveGenresToDbUSeCase()
+            loadAndSaveGenresToDbUSeCase()
         }
     }
 

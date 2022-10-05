@@ -1,5 +1,7 @@
 package com.projectapp.moviesapp.presentation.ui
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,6 +21,7 @@ import com.projectapp.moviesapp.R
 import com.projectapp.moviesapp.data.model.UiMovie
 import com.projectapp.moviesapp.databinding.FragmentMoviesListBinding
 import com.projectapp.moviesapp.domain.usecases.movielist.MovieType
+import com.projectapp.moviesapp.presentation.App
 import com.projectapp.moviesapp.presentation.recyclerview.ItemOffsetDecoration
 import com.projectapp.moviesapp.presentation.recyclerview.MovieFooterAdapter
 import com.projectapp.moviesapp.presentation.recyclerview.FooterSpanSizeLookup
@@ -38,7 +41,8 @@ class FragmentMoviesList : Fragment() {
     private val vm by lazy {
         ViewModelProvider(
             this,
-            MoviesListViewModelFactory(movieType ?: MovieType.POPULAR)
+            MoviesListViewModelFactory(movieType ?: MovieType.POPULAR,
+                app = requireContext().applicationContext as App)
         )[MoviesListViewModel::class.java]
     }
     private val movieOnClickListener by lazy {
@@ -99,7 +103,7 @@ class FragmentMoviesList : Fragment() {
     }
 
     private fun setUpFlowDataObserving() {
-        lifecycleScope.launch{
+        lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 vm.movieListData.collect {
                     moviesAdapter?.submitData(it)
