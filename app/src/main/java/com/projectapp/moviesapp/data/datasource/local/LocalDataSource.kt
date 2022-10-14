@@ -7,7 +7,11 @@ import com.projectapp.moviesapp.domain.usecases.movielist.MovieType
 
 interface LocalDataSource {
 
-    suspend fun saveMoviesToDb(uiMovies: List<JsonMovie>)
+    suspend fun saveMoviesToDb(movies: List<JsonMovie>)
+
+    suspend fun getMoviesFromDb(pageNumber: Int, movieType: MovieType):List<JsonMovie>
+
+    suspend fun clearMovieTable()
 
     suspend fun saveGenresToDb(genres: List<Genre>)
 
@@ -15,6 +19,6 @@ interface LocalDataSource {
 
     suspend fun getGenreById(id: Int): Genre
 
-    suspend fun getMoviesFromDb(pageNumber: Int, movieType: MovieType):List<JsonMovie>
+
 }
 

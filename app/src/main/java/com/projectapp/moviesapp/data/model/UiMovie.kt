@@ -27,17 +27,18 @@ data class UiMovie(
 ) : Parcelable
 
 
-fun UiMovie.mapToJsonMovie(): JsonMovie {
-    return JsonMovie(
-        id = id,
-        adult = this.age > 13,
-        backdropPath = this.imageUrl,
-        genreIDS = this.genres.map { it.id.toLong() },
-        overview = this.overview,
-        posterPath = this.imageUrl,
-        releaseDate = this.releaseDate,
-        title = this.title,
-        voteAverage = this.rating,
-        voteCount = this.reviewCount
-    )
-}
+//fun UiMovie.mapToJsonMovie(): JsonMovie {
+//    return JsonMovie(
+//        originalId = id,
+//        adult = this.age > 13,
+//        backdropPath = this.imageUrl,
+//        genreIDS = this.genres.map { it.id.toLong() },
+//        overview = this.overview,
+//        posterPath = this.imageUrl,
+//        releaseDate = this.releaseDate,
+//        title = this.title,
+//        voteAverage = this.rating,
+//        voteCount = this.reviewCount,
+//        primaryId = id
+//    )
+//}

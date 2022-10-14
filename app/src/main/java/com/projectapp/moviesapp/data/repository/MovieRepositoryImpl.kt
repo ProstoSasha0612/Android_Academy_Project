@@ -1,6 +1,5 @@
 package com.projectapp.moviesapp.data.repository
 
-import android.util.Log
 import com.projectapp.moviesapp.data.datasource.local.LocalDataSource
 import com.projectapp.moviesapp.data.datasource.remotedata.RemoteDataSource
 import com.projectapp.moviesapp.data.datasource.sharedprefs.SharedPrefsDataSource
@@ -8,7 +7,6 @@ import com.projectapp.moviesapp.data.model.*
 import com.projectapp.moviesapp.domain.repository.MovieRepository
 import com.projectapp.moviesapp.domain.usecases.movielist.MovieType
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.job
 import kotlinx.coroutines.withContext
 
 
@@ -19,21 +17,24 @@ class MovieRepositoryImpl private constructor(
 ) :
     MovieRepository {
 
-    override suspend fun loadMovies(pageNumber: Int, movieType: MovieType): List<UiMovie> = withContext(Dispatchers.IO) {
+    override suspend fun loadMovies(
+        pageNumber: Int,
+        movieType: MovieType,
+    ): List<JsonMovie> /*= withContext(Dispatchers.IO)*/ {
 //        val list = remoteDataSource.loadPopularMovies(pageNumber, movieType)
-//        Log.d("MYTAG1","Current time after api: ${System.currentTimeMillis()}")
+////        Log.d("MYTAG1","Current time after api: ${System.currentTimeMillis()}")
 //        saveMoviesToDb(list)//TODO
-//        Log.d("MYTAG1","Current time after save in db: ${System.currentTimeMillis()}")
-        val resList = localDataSource.getMoviesFromDb(pageNumber, movieType)
-//        Log.d("MYTAG1","Current time after get from db: ${System.currentTimeMillis()}")
-        mapMovieListToUiMovieList(resList)
+////        Log.d("MYTAG1","Current time after save in db: ${System.currentTimeMillis()}")
+//        val resList = localDataSource.getMoviesFromDb(pageNumber, movieType)
+////        Log.d("MYTAG1","Current time after get from db: ${System.currentTimeMillis()}")
+//        mapMovieListToUiMovieList(resList)
+        return remoteDataSource.loadPopularMovies(pageNumber, movieType)
     }
-
 
 
     /*TODO*/
     override suspend fun loadMoviesFromDb(pageNumber: Int, movieType: MovieType) {
-        localDataSource.getMoviesFromDb(pageNumber,MovieType.POPULAR)
+        localDataSource.getMoviesFromDb(pageNumber, MovieType.POPULAR)
     }
 
     override suspend fun getAllGenres(): List<Genre> = withContext(Dispatchers.IO) {
@@ -44,12 +45,24 @@ class MovieRepositoryImpl private constructor(
         localDataSource.saveGenresToDb(genres)
     }
 
-    suspend fun saveMoviesToDb(uiMovieList: List<JsonMovie>) = withContext(Dispatchers.IO) {
+    //New functions without interface
+    override suspend fun saveMoviesToDb(movieList: List<JsonMovie>) = withContext(Dispatchers.IO) {
 //        val listJsonMovie = uiMovieList.map {it.mapToJsonMovie()}
-        localDataSource.saveMoviesToDb(uiMovieList)
+        localDataSource.saveMoviesToDb(movieList)
     }
 
-    private suspend fun mapMovieListToUiMovieList(list: List<JsonMovie>): List<UiMovie> {
+    override suspend fun clearMovieTable() {
+        localDataSource.clearMovieTable()
+    }
+
+    override suspend fun getMoviesFromDb (
+        pageNumber: Int,
+        movieType: MovieType,
+    ): List<JsonMovie> = withContext(Dispatchers.IO) {
+         localDataSource.getMoviesFromDb(pageNumber, movieType)
+    }
+
+    override suspend fun mapMovieListToUiMovieList(list: List<JsonMovie>): List<UiMovie> {
         val res = mutableListOf<UiMovie>()
         list.forEach { movie ->
             val genreList = mutableListOf<Genre>()

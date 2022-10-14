@@ -33,6 +33,15 @@ class LocalDataSourceImpl(context: Context) : LocalDataSource {
 
     override suspend fun getMoviesFromDb(pageNumber: Int, movieType: MovieType): List<JsonMovie> =
         withContext(Dispatchers.IO) {
-            genreDao.getMoviesListPage(pageNumber + 1)
+            // - 1 because in db pages starts from 0, in api from 1
+            genreDao.getMoviesListPage(pageNumber - CONST_EQ_1)
         }
+
+    override suspend fun clearMovieTable() {
+        genreDao.clearMovieTable()
+    }
+
+    companion object{
+        private const val CONST_EQ_1 = 1
+    }
 }

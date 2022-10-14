@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.projectapp.moviesapp.data.model.Genre
 import com.projectapp.moviesapp.data.model.JsonMovie
+import com.projectapp.moviesapp.domain.utils.Constants
 
 @Dao
 interface GenreDao {
@@ -19,14 +20,10 @@ interface GenreDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addGenre(genre: Genre)
 
-
-//    @Insert
-//    suspend fun saveMoviesPageToDb(moviesPage: JsonMoviesPage)
-
     @Query("SELECT * FROM movies_table")
     suspend fun getAllMovies(): List<JsonMovie>
 
-    @Query("SELECT * FROM movies_table LIMIT 20 OFFSET :pageNumber*20")
+    @Query("SELECT * FROM movies_table ORDER BY timeStamp ASC LIMIT ${Constants.MOVIES_PAGE_SIZE} OFFSET :pageNumber*${Constants.MOVIES_PAGE_SIZE}")
     suspend fun getMoviesListPage(pageNumber: Int): List<JsonMovie>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -34,6 +31,9 @@ interface GenreDao {
 
     @Query("SELECT * FROM movies_table WHERE id = :id")
     suspend fun getMovieById(id: Long): JsonMovie
+
+    @Query("DELETE FROM movies_table")
+    suspend fun clearMovieTable()
 
 }
 
