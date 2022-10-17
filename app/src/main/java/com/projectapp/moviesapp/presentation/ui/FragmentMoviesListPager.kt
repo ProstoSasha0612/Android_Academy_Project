@@ -40,7 +40,7 @@ class FragmentMoviesListPager : Fragment() {
             tab.text = when (MovieType.values()[position]) {
                 MovieType.POPULAR -> resources.getString(R.string.movie_type_popular)
                 MovieType.TOP_RATED -> resources.getString(R.string.movie_type_top_rated)
-                MovieType.LATEST -> resources.getString(R.string.movie_type_latest)
+//                MovieType.LATEST -> resources.getString(R.string.movie_type_latest)
                 MovieType.UPCOMING -> resources.getString(R.string.movie_type_upcoming)
             }
         }

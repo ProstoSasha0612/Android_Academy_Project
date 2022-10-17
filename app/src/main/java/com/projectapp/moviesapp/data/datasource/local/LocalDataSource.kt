@@ -1,15 +1,14 @@
 package com.projectapp.moviesapp.data.datasource.local
 
+import com.projectapp.moviesapp.data.model.DataMovie
 import com.projectapp.moviesapp.data.model.Genre
-import com.projectapp.moviesapp.data.model.JsonMovie
-import com.projectapp.moviesapp.data.model.UiMovie
 import com.projectapp.moviesapp.domain.usecases.movielist.MovieType
 
 interface LocalDataSource {
 
-    suspend fun saveMoviesToDb(movies: List<JsonMovie>)
+    suspend fun saveMoviesToDb(movies: List<DataMovie>)
 
-    suspend fun getMoviesFromDb(pageNumber: Int, movieType: MovieType):List<JsonMovie>
+    suspend fun getMoviesFromDb(pageNumber: Int, movieType: MovieType):List<DataMovie>
 
     suspend fun clearMovieTable()
 

@@ -1,85 +1,61 @@
 package com.projectapp.moviesapp.data.model
 
-import androidx.room.*
-import com.projectapp.moviesapp.data.datasource.local.MovieTypeConverter
+import com.projectapp.moviesapp.domain.usecases.movielist.MovieType
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import java.sql.Timestamp
 
 @Serializable
-@Entity(tableName = "movies_table")
-@TypeConverters(MovieTypeConverter::class)
 data class JsonMovie(
 
     @SerialName("id")
-    @PrimaryKey
-    @ColumnInfo(name = "id")
     val id: Long,
 
     @SerialName("adult")
-    @ColumnInfo(name = "adult")
     val adult: Boolean,
 
     @SerialName("backdrop_path")
-    @ColumnInfo(name = "backdrop_path")
     val backdropPath: String?,
 
     @SerialName("genre_ids")
-    @ColumnInfo(name = "genre_ids")
     val genreIDS: List<Long>,
 
     @SerialName("overview")
-    @ColumnInfo(name = "overview")
     val overview: String,
 
     @SerialName("poster_path")
-    @ColumnInfo(name = "poster_path")
     val posterPath: String?,
 
     @SerialName("release_date")
-    @ColumnInfo(name = "release_date")
     val releaseDate: String? = null,
 
     @SerialName("title")
-    @ColumnInfo(name = "title")
     val title: String,
 
     @SerialName("vote_average")
-    @ColumnInfo(name = "vote_average")
     val voteAverage: Double,
 
     @SerialName("vote_count")
-    @ColumnInfo(name = "vote_count")
     val voteCount: Long,
-
-    @ColumnInfo(name = "timeStamp")
-    val timeStamp: Long = System.currentTimeMillis()
 )
 
-fun JsonMovie.mapToUiMovie(genres: List<Genre>, width: Int = 500): UiMovie {
-//    val title = originalTitle
-    val overview = overview
-
-    val startOfImageUrl = "https://image.tmdb.org/t/p/w$width/"
-    val imageUrl = if (posterPath.isNullOrEmpty()) null else startOfImageUrl + posterPath
-    val detailImageUrl =
-        if (backdropPath.isNullOrEmpty()) imageUrl else startOfImageUrl + backdropPath
-
-    val rating = voteAverage / 2
-    val reviewCount = voteCount
-    val pgAge = if (adult) 16 else 13
-    val releaseDate = releaseDate
-
-    return UiMovie(
-        id = this.id,
-        title = title,
-        overview = overview,
-        imageUrl = imageUrl,
-        detailImageUrl = detailImageUrl,
-        rating = rating,
-        reviewCount = reviewCount,
-        age = pgAge,
-        releaseDate = releaseDate,
-        genres = genres
-    )
+fun List<JsonMovie>.mapToDataMoviesList(movieType: MovieType): List<DataMovie> {
+    val res = mutableListOf<DataMovie>()
+    this.forEach {
+        val dataMovie = DataMovie(
+            id = it.id,
+            adult = it.adult,
+            backdropPath = it.backdropPath,
+            genreIDS = it.genreIDS,
+            overview = it.overview,
+            posterPath = it.posterPath,
+            releaseDate = it.releaseDate,
+            title = it.title,
+            voteAverage = it.voteAverage,
+            voteCount = it.voteCount,
+            movieType = movieType,
+            timeStamp = System.currentTimeMillis()
+        )
+        res.add(dataMovie)
+    }
+    return res
 }

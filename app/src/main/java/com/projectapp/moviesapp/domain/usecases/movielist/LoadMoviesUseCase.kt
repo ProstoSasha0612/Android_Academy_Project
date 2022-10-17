@@ -1,10 +1,7 @@
 package com.projectapp.moviesapp.domain.usecases.movielist
 
 import android.util.Log
-import com.projectapp.moviesapp.data.model.Genre
-import com.projectapp.moviesapp.data.model.JsonMovie
-import com.projectapp.moviesapp.data.model.UiMovie
-import com.projectapp.moviesapp.data.model.mapToUiMovie
+import com.projectapp.moviesapp.data.model.*
 import com.projectapp.moviesapp.domain.logic.InternetStatusChecker
 import com.projectapp.moviesapp.domain.logic.TablesCleaner
 import com.projectapp.moviesapp.domain.repository.MovieRepository
@@ -37,16 +34,21 @@ class LoadMoviesUseCase(
                 val moviesFromNetwork = movieRepository.loadMovies(pageNumber, movieType)
                 Log.d("MYTAG", "movies list downloaded from network/api with PAGE number = $pageNumber")
                 Log.d("MYTAG", "movies list downloaded from network/api = $moviesFromNetwork")
-                movieRepository.saveMoviesToDb(moviesFromNetwork)
+                val dataMoviesList = moviesFromNetwork.mapToDataMoviesList(movieType)
+                Log.d("MYTAG","JsonMovie mapped to DataMovie")
+                Log.d("MYTAG","mapped MoviesList: $dataMoviesList")
+                movieRepository.saveMoviesToDb(dataMoviesList)
                 val moviesInDB = movieRepository.getMoviesFromDb(pageNumber, movieType)
-                Log.d("MYTAG", "movies list downloaded from network/api was saved to DB = $moviesInDB")
-                movieRepository.getMoviesFromDb(pageNumber, movieType)
+                Log.d("MYTAG", "movies list downloaded from network/api that was saved to DB = $moviesInDB")
+                Log.d("MYTAG", "WAITING FOR AWAIT ")
+                moviesInDB
 
             }
         } else {
+            Log.d("MYTAG", "WAITING FOR AWAIT ")
             async(Dispatchers.IO) { movieRepository.getMoviesFromDb(pageNumber, movieType) }
         }.await()
-//        awaitAll(jsonMoviesListDeferred)
+        Log.d("MYTAG", "AWAIT IS COMPLETED")
         val resList = jsonMoviesListDeferred
         Log.d("MYTAG", "movies list returned from network/db to UI = $resList")
 

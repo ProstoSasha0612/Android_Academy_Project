@@ -6,10 +6,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
+import com.projectapp.moviesapp.data.model.DataMovie
 import com.projectapp.moviesapp.data.model.Genre
 import com.projectapp.moviesapp.data.model.JsonMovie
 
-@Database(entities = [Genre::class, JsonMovie::class], version = 1)
+@Database(entities = [Genre::class, DataMovie::class], version = 1)
 abstract class MovieDataBase : RoomDatabase() {
     abstract val genreDao: GenreDao
 //    abstract val movieDao: MovieDao

@@ -22,6 +22,7 @@ class MovieDataSource(val loadMoviesUseCase: LoadMoviesUseCase) : PagingSource<I
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, UiMovie> {
         return try {
+            Log.d("MYTAG","loadMovieUseCase called with params: ${params.key}")
             val currentLoadingPage = params.key ?: 1
             val response = loadMoviesUseCase(currentLoadingPage)
             Log.d("MYTAG", "page number# $currentLoadingPage loaded")
@@ -30,9 +31,9 @@ class MovieDataSource(val loadMoviesUseCase: LoadMoviesUseCase) : PagingSource<I
             val prevKey = if (currentLoadingPage == 1) null else currentLoadingPage - 1
             val nextKey = if (response.isNotEmpty()) currentLoadingPage + 1 else null
 
-//            if (response.isEmpty()) {
-//                return LoadResult.Page(response, prevKey = prevKey, nextKey = null)
-//            }
+            if (response.isEmpty()) {
+                return LoadResult.Page(response, prevKey = prevKey, nextKey = null)
+            }
 
             LoadResult.Page(
                 data = response,

@@ -33,9 +33,9 @@ class MovieRepositoryImpl private constructor(
 
 
     /*TODO*/
-    override suspend fun loadMoviesFromDb(pageNumber: Int, movieType: MovieType) {
-        localDataSource.getMoviesFromDb(pageNumber, MovieType.POPULAR)
-    }
+//    override suspend fun loadMoviesFromDb(pageNumber: Int, movieType: MovieType) {
+//        localDataSource.getMoviesFromDb(pageNumber, movieType)
+//    }
 
     override suspend fun getAllGenres(): List<Genre> = withContext(Dispatchers.IO) {
         remoteDataSource.loadAllGenres()
@@ -46,9 +46,9 @@ class MovieRepositoryImpl private constructor(
     }
 
     //New functions without interface
-    override suspend fun saveMoviesToDb(movieList: List<JsonMovie>) = withContext(Dispatchers.IO) {
+    override suspend fun saveMoviesToDb(list: List<DataMovie>) /*= withContext(Dispatchers.IO)*/ {
 //        val listJsonMovie = uiMovieList.map {it.mapToJsonMovie()}
-        localDataSource.saveMoviesToDb(movieList)
+        localDataSource.saveMoviesToDb(list)
     }
 
     override suspend fun clearMovieTable() {
@@ -58,11 +58,11 @@ class MovieRepositoryImpl private constructor(
     override suspend fun getMoviesFromDb (
         pageNumber: Int,
         movieType: MovieType,
-    ): List<JsonMovie> = withContext(Dispatchers.IO) {
+    ): List<DataMovie> = withContext(Dispatchers.IO) {
          localDataSource.getMoviesFromDb(pageNumber, movieType)
     }
 
-    override suspend fun mapMovieListToUiMovieList(list: List<JsonMovie>): List<UiMovie> {
+    override suspend fun mapMovieListToUiMovieList(list: List<DataMovie>): List<UiMovie> {
         val res = mutableListOf<UiMovie>()
         list.forEach { movie ->
             val genreList = mutableListOf<Genre>()

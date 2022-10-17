@@ -1,6 +1,7 @@
 package com.projectapp.moviesapp.data.datasource.local
 
 import androidx.room.TypeConverter
+import com.projectapp.moviesapp.domain.usecases.movielist.MovieType
 
 class MovieTypeConverter {
 
@@ -14,4 +15,15 @@ class MovieTypeConverter {
         val listStrings = data.split(",")
         return listStrings.map { it.toLong() }
     }
+
+    @TypeConverter
+    fun fromMovieType(movieType: MovieType): String {
+        return movieType.typeName
+    }
+
+    @TypeConverter
+    fun toMovieType(data: String): MovieType {
+        return MovieType.valueOf(data)
+    }
+
 }
