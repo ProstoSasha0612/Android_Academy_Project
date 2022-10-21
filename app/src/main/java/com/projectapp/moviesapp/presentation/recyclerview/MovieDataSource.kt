@@ -9,6 +9,10 @@ import java.net.ConnectException
 
 class MovieDataSource(val loadMoviesUseCase: LoadMoviesUseCase) : PagingSource<Int, UiMovie>() {
 
+    init {
+        Log.d("MYTAG ds","Movie DataSource created")
+    }
+
     override fun getRefreshKey(state: PagingState<Int, UiMovie>): Int? {
 //        return state.anchorPosition?.let {
 //            state.closestPageToPosition(it)?.prevKey?.plus(1)
@@ -22,7 +26,6 @@ class MovieDataSource(val loadMoviesUseCase: LoadMoviesUseCase) : PagingSource<I
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, UiMovie> {
         return try {
-            Log.d("MYTAG","loadMovieUseCase called with params: ${params.key}")
             val currentLoadingPage = params.key ?: 1
             val response = loadMoviesUseCase(currentLoadingPage)
             Log.d("MYTAG", "page number# $currentLoadingPage loaded")

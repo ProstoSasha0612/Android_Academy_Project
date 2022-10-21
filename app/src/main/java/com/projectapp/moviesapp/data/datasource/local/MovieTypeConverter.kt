@@ -18,12 +18,12 @@ class MovieTypeConverter {
 
     @TypeConverter
     fun fromMovieType(movieType: MovieType): String {
-        return movieType.typeName
+        return movieType.typeName.lowercase()
     }
 
     @TypeConverter
-    fun toMovieType(data: String): MovieType {
-        return MovieType.valueOf(data)
+    fun toMovieType(movieType: String): MovieType {
+        return MovieType.valueOf(movieType)
     }
 
 }

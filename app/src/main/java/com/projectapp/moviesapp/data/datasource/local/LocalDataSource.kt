@@ -16,8 +16,6 @@ interface LocalDataSource {
 
     suspend fun geAllGenresFromDb(): List<Genre>
 
-    suspend fun getGenreById(id: Int): Genre
-
+    suspend fun getGenreById(id: Long): Genre
 
 }
-

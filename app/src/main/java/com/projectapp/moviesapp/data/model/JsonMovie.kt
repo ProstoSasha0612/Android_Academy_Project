@@ -1,5 +1,6 @@
 package com.projectapp.moviesapp.data.model
 
+import android.util.Log
 import com.projectapp.moviesapp.domain.usecases.movielist.MovieType
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -41,6 +42,7 @@ data class JsonMovie(
 fun List<JsonMovie>.mapToDataMoviesList(movieType: MovieType): List<DataMovie> {
     val res = mutableListOf<DataMovie>()
     this.forEach {
+        Log.d("MYTAG movietype","movies type is: ${movieType.typeName}")
         val dataMovie = DataMovie(
             id = it.id,
             adult = it.adult,
@@ -52,7 +54,7 @@ fun List<JsonMovie>.mapToDataMoviesList(movieType: MovieType): List<DataMovie> {
             title = it.title,
             voteAverage = it.voteAverage,
             voteCount = it.voteCount,
-            movieType = movieType,
+            movieType = movieType.typeName.lowercase(),
             timeStamp = System.currentTimeMillis()
         )
         res.add(dataMovie)

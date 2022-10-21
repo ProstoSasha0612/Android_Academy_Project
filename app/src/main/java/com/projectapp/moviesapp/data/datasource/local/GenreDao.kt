@@ -16,7 +16,7 @@ interface GenreDao {
     suspend fun getAllGenres(): List<Genre>
 
     @Query("SELECT * FROM genres_table WHERE id = :id")
-    suspend fun getGenreById(id: Int): Genre
+    suspend fun getGenreById(id: Long): Genre
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addGenre(genre: Genre)
@@ -24,17 +24,17 @@ interface GenreDao {
     @Query("SELECT * FROM movies_table")
     suspend fun getAllMovies(): List<DataMovie>
 
-    @Query("SELECT * FROM movies_table" +
-            " WHERE movie_type = :movieType " +
-            "ORDER BY timeStamp ASC " +
+    @Query("SELECT * FROM movies_table " +
+            "WHERE movie_type = :movieType " +
+            "ORDER BY timeStamp " +
             "LIMIT ${Constants.MOVIES_PAGE_SIZE} " +
             "OFFSET :pageNumber*${Constants.MOVIES_PAGE_SIZE}")
-    suspend fun getMoviesListPage(pageNumber: Int, movieType: MovieType): List<DataMovie>
+    suspend fun getMoviesListPage(pageNumber: Int, movieType: String): List<DataMovie>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun saveMovieToDb(movie: DataMovie)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun saveMoviesToDb(list: List<DataMovie>)
 
     @Query("SELECT * FROM movies_table WHERE id = :id")

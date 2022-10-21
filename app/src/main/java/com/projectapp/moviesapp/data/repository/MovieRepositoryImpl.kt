@@ -20,22 +20,9 @@ class MovieRepositoryImpl private constructor(
     override suspend fun loadMovies(
         pageNumber: Int,
         movieType: MovieType,
-    ): List<JsonMovie> /*= withContext(Dispatchers.IO)*/ {
-//        val list = remoteDataSource.loadPopularMovies(pageNumber, movieType)
-////        Log.d("MYTAG1","Current time after api: ${System.currentTimeMillis()}")
-//        saveMoviesToDb(list)//TODO
-////        Log.d("MYTAG1","Current time after save in db: ${System.currentTimeMillis()}")
-//        val resList = localDataSource.getMoviesFromDb(pageNumber, movieType)
-////        Log.d("MYTAG1","Current time after get from db: ${System.currentTimeMillis()}")
-//        mapMovieListToUiMovieList(resList)
-        return remoteDataSource.loadPopularMovies(pageNumber, movieType)
+    ): List<JsonMovie> = withContext(Dispatchers.IO) {
+        remoteDataSource.loadPopularMovies(pageNumber, movieType)
     }
-
-
-    /*TODO*/
-//    override suspend fun loadMoviesFromDb(pageNumber: Int, movieType: MovieType) {
-//        localDataSource.getMoviesFromDb(pageNumber, movieType)
-//    }
 
     override suspend fun getAllGenres(): List<Genre> = withContext(Dispatchers.IO) {
         remoteDataSource.loadAllGenres()
@@ -45,7 +32,6 @@ class MovieRepositoryImpl private constructor(
         localDataSource.saveGenresToDb(genres)
     }
 
-    //New functions without interface
     override suspend fun saveMoviesToDb(list: List<DataMovie>) /*= withContext(Dispatchers.IO)*/ {
 //        val listJsonMovie = uiMovieList.map {it.mapToJsonMovie()}
         localDataSource.saveMoviesToDb(list)
@@ -55,11 +41,11 @@ class MovieRepositoryImpl private constructor(
         localDataSource.clearMovieTable()
     }
 
-    override suspend fun getMoviesFromDb (
+    override suspend fun getMoviesFromDb(
         pageNumber: Int,
         movieType: MovieType,
     ): List<DataMovie> = withContext(Dispatchers.IO) {
-         localDataSource.getMoviesFromDb(pageNumber, movieType)
+        localDataSource.getMoviesFromDb(pageNumber, movieType)
     }
 
     override suspend fun mapMovieListToUiMovieList(list: List<DataMovie>): List<UiMovie> {
@@ -67,7 +53,7 @@ class MovieRepositoryImpl private constructor(
         list.forEach { movie ->
             val genreList = mutableListOf<Genre>()
             movie.genreIDS.forEach { genreId ->
-                val genre = localDataSource.getGenreById(genreId.toInt())
+                val genre = localDataSource.getGenreById(genreId)
                 genreList.add(genre)
             }
             res.add(movie.mapToUiMovie(genreList))

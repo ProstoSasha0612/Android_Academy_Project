@@ -43,7 +43,7 @@ data class DataMovie(
     val voteCount: Long,
 
     @ColumnInfo(name = "movie_type")
-    val movieType: MovieType,
+    val movieType: String,
 
     @ColumnInfo(name = "timeStamp")
     val timeStamp: Long = System.currentTimeMillis()

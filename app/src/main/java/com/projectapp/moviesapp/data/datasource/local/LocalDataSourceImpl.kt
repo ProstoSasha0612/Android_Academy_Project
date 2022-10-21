@@ -1,6 +1,7 @@
 package com.projectapp.moviesapp.data.datasource.local
 
 import android.content.Context
+import android.util.Log
 import com.projectapp.moviesapp.data.model.DataMovie
 import com.projectapp.moviesapp.data.model.Genre
 import com.projectapp.moviesapp.domain.usecases.movielist.MovieType
@@ -13,7 +14,7 @@ class LocalDataSourceImpl(context: Context) : LocalDataSource {
     private val genreDao = movieDataBase.genreDao
 //    private val movieDao = movieDataBase.movieDao
 
-    override suspend fun saveMoviesToDb(movies: List<DataMovie>) /*= withContext(Dispatchers.IO)*/ {
+    override suspend fun saveMoviesToDb(movies: List<DataMovie>) = withContext(Dispatchers.IO) {
 //        movies.forEach { genreDao.saveMovieToDb(it) }
         genreDao.saveMoviesToDb(movies)
     }
@@ -28,18 +29,16 @@ class LocalDataSourceImpl(context: Context) : LocalDataSource {
         genreDao.getAllGenres()
     }
 
-    override suspend fun getGenreById(id: Int): Genre = withContext(Dispatchers.IO) {
+    override suspend fun getGenreById(id: Long): Genre = withContext(Dispatchers.IO) {
         genreDao.getGenreById(id)
     }
 
-    override suspend fun getMoviesFromDb(pageNumber: Int, movieType: MovieType): List<DataMovie>{
-//        withContext(Dispatchers.IO) {
-//            // - 1 because in db pages starts from 0, in api from 1
-//            genreDao.getMoviesListPage(pageNumber - CONST_EQ_1, movieType)
-//        }
-        val list = genreDao.getMoviesListPage(pageNumber /*- CONST_EQ_1*/, movieType)
-        return list
-}
+    override suspend fun getMoviesFromDb(pageNumber: Int, movieType: MovieType): List<DataMovie> =
+        withContext(Dispatchers.IO) {
+            // - 1 because in db pages starts from 0, in api from 1
+            val movieTypeStr = movieType.typeName.lowercase()
+            genreDao.getMoviesListPage(pageNumber - 1,movieTypeStr)
+        }
 
     override suspend fun clearMovieTable() {
         genreDao.clearMovieTable()

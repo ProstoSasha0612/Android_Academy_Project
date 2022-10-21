@@ -8,9 +8,6 @@ import com.projectapp.moviesapp.domain.usecases.movielist.MovieType
 
 
 interface MovieRepository {
-//    suspend fun loadMovies(): List<Movie>
-//
-//    suspend fun loadMovie(movieId: Int): Movie?
 
     suspend fun loadMovies(pageNumber: Int, movieType: MovieType): List<JsonMovie>
 
