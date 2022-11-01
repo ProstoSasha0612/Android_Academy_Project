@@ -67,7 +67,7 @@ class FragmentMovieDetails : Fragment() {
 //            setRatingStarsColor(vm.movie?.rating?:0)
             binding.reviewsCountTv.text =
                 "${vm.uiMovie?.reviewCount} ${resources.getString(R.string.reviews_text)}"
-            ageRateTv.text = "${vm.uiMovie?.pgAge}+"
+            ageRateTv.text = "${vm.uiMovie?.age}+"
             Log.d("MYTAGUIMOVIE",vm.uiMovie.genres.toString())
             genreTv.text = Extra.getGenresText(vm.uiMovie?.genres)
         }

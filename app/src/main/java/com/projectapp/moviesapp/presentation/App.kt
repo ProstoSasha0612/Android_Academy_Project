@@ -18,6 +18,6 @@ class App : Application() {
         val remoteDataSource = RemoteDataSourceImpl()
         val localDataSource = LocalDataSourceImpl(applicationContext)
         val sharedPrefsDataSource = SharedPrefsDataSourceImpl(applicationContext)
-        MovieRepositoryImpl.initialize(remoteDataSource, localDataSource, sharedPrefsDataSource)
+        MovieRepositoryImpl.initialise(remoteDataSource, localDataSource, sharedPrefsDataSource)
     }
 }

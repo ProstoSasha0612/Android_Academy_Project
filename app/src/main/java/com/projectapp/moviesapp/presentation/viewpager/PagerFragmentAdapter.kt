@@ -21,8 +21,8 @@ class PagerFragmentAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycl
         return when (position) {
             0 -> FragmentMoviesList.newInstance(MovieType.POPULAR)
             1 -> FragmentMoviesList.newInstance(MovieType.TOP_RATED)
-            2 -> FragmentMoviesList.newInstance(MovieType.LATEST)
-            3 -> FragmentMoviesList.newInstance(MovieType.UPCOMING)
+            2 -> FragmentMoviesList.newInstance(MovieType.UPCOMING)
+//            3 -> FragmentMoviesList.newInstance(MovieType.UPCOMING)
             else -> throw IllegalStateException()
         }
     }
