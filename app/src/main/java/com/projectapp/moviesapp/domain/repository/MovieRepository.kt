@@ -1,5 +1,6 @@
 package com.projectapp.moviesapp.domain.repository
 
+import com.projectapp.moviesapp.data.datasource.local.models.MovieEntity
 import com.projectapp.moviesapp.data.model.DataMovie
 import com.projectapp.moviesapp.data.model.Genre
 import com.projectapp.moviesapp.data.model.JsonMovie
@@ -11,11 +12,11 @@ interface MovieRepository {
 
     suspend fun loadMovies(pageNumber: Int, movieType: MovieType): List<JsonMovie>
 
-    suspend fun saveMoviesToDb(list: List<DataMovie>)
+    suspend fun saveMoviesToDb(list: List<MovieEntity>,movieType: MovieType)
 
-    suspend fun getMoviesFromDb(pageNumber: Int, movieType: MovieType): List<DataMovie>
+    suspend fun getMoviesFromDb(pageNumber: Int, movieType: MovieType): List<MovieEntity>
 
-    suspend fun mapMovieListToUiMovieList(list: List<DataMovie>): List<UiMovie>
+    suspend fun mapMovieListToUiMovieList(list: List<MovieEntity>): List<UiMovie>
 
     suspend fun clearMovieTable()
 

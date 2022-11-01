@@ -1,7 +1,5 @@
 package com.projectapp.moviesapp.presentation.ui
 
-import android.content.Context
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -22,9 +20,9 @@ import com.projectapp.moviesapp.data.model.UiMovie
 import com.projectapp.moviesapp.databinding.FragmentMoviesListBinding
 import com.projectapp.moviesapp.domain.usecases.movielist.MovieType
 import com.projectapp.moviesapp.presentation.App
+import com.projectapp.moviesapp.presentation.recyclerview.FooterSpanSizeLookup
 import com.projectapp.moviesapp.presentation.recyclerview.ItemOffsetDecoration
 import com.projectapp.moviesapp.presentation.recyclerview.MovieFooterAdapter
-import com.projectapp.moviesapp.presentation.recyclerview.FooterSpanSizeLookup
 import com.projectapp.moviesapp.presentation.recyclerview.MoviesAdapter
 import com.projectapp.moviesapp.presentation.viewmodel.MoviesListViewModel
 import com.projectapp.moviesapp.presentation.viewmodel.factory.MoviesListViewModelFactory
@@ -70,7 +68,7 @@ class FragmentMoviesList : Fragment() {
         setUpOnClickListeners()
         setUpFlowDataObserving()
 
-//        setUpLoadStateFlowObserving()
+        setUpLoadStateFlowObserving()
 
     }
 
@@ -119,6 +117,7 @@ class FragmentMoviesList : Fragment() {
                     binding.progressBar.isVisible = loadState.source.refresh is LoadState.Loading
                     binding.retryBtn.isVisible = loadState.source.refresh is LoadState.Error
                     binding.tvErrorText.isVisible = loadState.source.refresh is LoadState.Error
+                    loadState.append
                     Log.d("MYTAGS", "Adapter loadState is $loadState")
                 }
             }
